@@ -1,153 +1,106 @@
-# Nanjing Travel Companion — System Design
+# 系统架构
 
-## 架构概览
+## 全景
 
 ```
-┌─────────────┐     ┌─────────────┐     ┌──────────────┐
-│  小红书 Scraper │────▶│  OCR/理解   │────▶│ 知识结构化   │
-│  (图文笔记)     │     │ (文字+图片)  │     │ (chunks)     │
-└─────────────┘     └─────────────┘     └──────┬───────┘
-                                                  │
-                                                  ▼
-┌─────────────┐     ┌─────────────┐     ┌──────────────┐
-│  用户输入     │────▶│ 场景检索     │────▶│ Agent 生成   │
-│ (语音/文字)  │     │ (向量 top-k) │     │ (对话式输出)  │
-└─────────────┘     └─────────────┘     └──────────────┘
+            离线知识构建管线                            在线问答
+┌──────────┐   ┌──────────┐   ┌───────────┐
+│ scraper  │──▶│   ocr    │──▶│ knowledge │
+│ XHS 图文  │   │ VL 理解   │   │ chunk+索引 │
+└──────────┘   └──────────┘   └─────┬─────┘
+                                    │ retrieve(query, scene)
+                              ┌─────▼─────┐   ┌──────────┐
+              用户输入 ──────▶│   agent   │──▶│   LLM    │
+                              │ 场景识别    │   │ qwen 系列 │
+                              └───────────┘   └──────────┘
 ```
 
-## 数据流
-
-1. **采集**：Scraper 抓取小红书南京攻略笔记（图文）
-2. **解析**：OCR 提取图片文字 + 视觉理解提取结构化信息
-3. **索引**：生成 Chunk，Embedding，存入向量索引
-4. **检索**：用户输入 → 场景检索 → top-k 相关攻略
-5. **生成**：Agent 基于检索结果 + 人设，生成对话式回答
+两条管线共享 chunk schema，通过 `data/` 下的 JSON 文件解耦 —— 离线管线可以在
+没有用户的情况下跑，在线侧只需要 `data/index/` 已构建。
 
 ## 关键设计决策
 
-### 1. 图文混合处理
-- 小红书笔记 = 封面图 + 手帐排版图 + 文字描述
-- **不依赖纯文字**：OCR 是必须的
-- 图片理解优先级：通义千问 VL > PaddleOCR（手帐风需要视觉理解）
+### D1 统一的 OpenAI 兼容传输层
+VL（豆包 2.1 via AI Ping）、LLM（qwen-turbo via 百炼）、Embedding
+（qwen3.7-text-embedding-flash via 百炼）都走 `POST {base_url}/chat/completions`
+或 `/embeddings`。每个模块只持有一个薄 client + 一个可注入的 provider 接口。
+理由：三家用同一套鉴权/重试/错误处理；mock 时换掉 provider 即可，测试零网络。
 
-### 2. 场景化检索
-- 不是全文搜索，而是「用户要去 X → 检索 X 相关攻略」
-- 索引维度：POI + 场景类型 + 时间 + 标签
-- 检索策略：余弦 top-k + 规则过滤（如「秋天」相关）
+### D2 离线优先的 provider 注入
+每个外部依赖都有「真实实现 + 本地实现」：
 
-### 3. Agent 人设
-- **看过攻略，但没去过南京** 的搭子
-- 语气：热情、会种草、偶尔犹豫「这个我也没试过」
-- 不是「旅游专家」，是「一起做攻略的伙伴」
+| 依赖 | 真实 | 本地/测试 |
+|------|------|-----------|
+| VL 理解 | `VLClient`（AI Ping 豆包） | `MockVLUClient`（按文件名查表返回） |
+| Embedding | `DashScopeEmbedding` | `HashEmbedding`（char-bigram 哈希向量） |
+| LLM | `ChatClient`（百炼 qwen-turbo） | `MockLLM`（模板化搭子口吻回复） |
+| XHS | `WebSource` / `MCPSource` | `FixtureSource`（读 data/mock/notes） |
 
-### 4. MVP 边界
-- 不做多轮规划（「帮我规划 3 天行程」）
-- 只做单点问答（「明孝陵怎么玩？」）
-- 不做实时信息（「今天明孝陵人多吗？」）
+`config.py` 根据 env 是否配置了 key 自动选择，也可显式注入。整条管线在无任何
+API key 的机器上可跑通、可测试。
 
-## 模块接口
+### D3 Chunk 是唯一流通货币
+scraper 产 `Note`，ocr 产 `ChunkDraft`，knowledge 存 `Chunk`，agent 读
+`RetrievedChunk`。字段向后兼容地增长，但 `location/type/content/tags/
+structured_data/source_ref` 是契约核心（见 KNOWLEDGE.md）。
 
-### Scraper → OCR
+### D4 检索 = 向量召回 + 结构化约束
+纯向量检索在「夫子庙美食」这种 POI×类型组合查询上噪声大。retriever 先做
+POI 别名精确匹配（知识图谱提供别名表）+ 类型/tag 过滤缩圈，再在圈内做
+余弦排序；无 POI 命中时退化为全库余弦 top-k。
+
+### D5 知识注入克制原则
+检索结果注入 prompt 时附带明确指令：「挑 1–2 个最相关的点用自己的话说」。
+宁可少说不漏搭子人设，不允许把 chunk 列表倾倒给用户。
+
+## 模块间契约
+
+### Note（scraper → 文件系统）
 ```json
 {
-  "note_id": "xxx",
-  "title": "南京7天6晚",
-  "images": ["url1", "url2", ...],
-  "text": "正文文字（如有）",
-  "author": "xxx",
-  "likes": 1234
+  "note_id": "xhs_abc123",
+  "title": "南京3天2晚保姆级攻略",
+  "author": "小熊软糖",
+  "url": "https://www.xiaohongshu.com/explore/abc123",
+  "images": ["data/raw/images/xhs_abc123_0.jpg"],
+  "text": "正文文字",
+  "tags": ["南京旅游", "攻略"],
+  "likes": 2341,
+  "created_at": "2026-08-15",
+  "crawled_at": "2026-09-22T10:00:00"
 }
 ```
 
-### OCR → Knowledge
+### ChunkDraft（ocr → knowledge）
 ```json
 {
-  "chunk_id": "chunk_001",
-  "source_note_id": "xxx",
+  "source_note_id": "xhs_abc123",
+  "source_image": "data/raw/images/xhs_abc123_0.jpg",
   "location": "明孝陵",
-  "type": "POI|美食|住宿|交通|避坑",
-  "content": "结构化攻略文字",
-  "media_refs": ["image_001.jpg"],
-  "tags": ["秋天", "拍照"],
+  "type": "POI",
+  "content": "石象路秋天封神，10月中下旬银杏全黄，8点前到没人",
+  "tags": ["秋天", "拍照", "清晨"],
+  "structured_data": {"locations": ["明孝陵","石象路"], "activities": ["拍照"],
+                      "time_hint": "10月中下旬/清晨", "food": [], "tips": ["8点前到"]},
   "confidence": 0.9
 }
 ```
 
-### Knowledge → Agent
+### RetrievedChunk（knowledge → agent）
 ```json
-{
-  "query": "明孝陵怎么玩",
-  "relevant_chunks": [
-    {
-      "content": "明孝陵石象路秋天超美...",
-      "source": "小红书笔记 xxx",
-      "relevance": 0.92
-    }
-  ],
-  "context": "用户正在计划南京旅游..."
-}
+{"chunk_id": "ck_xhs_abc123_0", "content": "...", "location": "明孝陵",
+ "type": "POI", "tags": ["..."], "score": 0.83, "source_ref": {...}}
 ```
 
-## 技术栈
+## 失败与降级
 
-| 组件 | 技术 |
-|------|------|
-| Scraper | xiaohongshu-mcp / Playwright |
-| OCR | 通义千问 VL + PaddleOCR |
-| Embedding | 百炼 qwen3.7-text-embedding-flash |
-| 向量库 | 本地 JSON + 余弦 top-k |
-| Agent | Python + 百炼 LLM |
-| 前端 | 暂缓，先做知识库 + Agent |
+- VL API 失败 → 记 warning，尝试 PaddleOCR → 仍失败则跳过该图（笔记文字仍可成 chunk）。
+- Embedding API 失败 → indexer 报错退出（索引必须完整，不接受半残索引）。
+- 检索结果为空 → agent 收到空知识块，prompt 指示其承认「没刷到相关攻略」。
+- LLM 失败 → 抛出带上下文错误，不静默兜底。
 
-## 目录结构
+## 目录与运行入口
 
-```
-nanjing-travel-companion/
-├── .loom/
-│   ├── PROJECT.md
-│   ├── SYSTEM.md
-│   ├── SCRAPER.md
-│   ├── OCR.md
-│   ├── KNOWLEDGE.md
-│   ├── AGENT.md
-│   └── tasks.json
-├── data/
-│   ├── raw/                    # 原始抓取数据
-│   │   ├── notes/              # 笔记 JSON
-│   │   └── images/             # 图片缓存
-│   ├── processed/              # OCR 后结构化数据
-│   │   ├── chunks.json
-│   │   └── knowledge_graph.json
-│   └── index/                  # 向量索引
-│       ├── embeddings.json
-│       └── search_index.json
-├── src/
-│   ├── scraper/
-│   │   ├── __init__.py
-│   │   ├── xhs_client.py       # 小红书 API/页面抓取
-│   │   └── downloader.py       # 图片下载
-│   ├── ocr/
-│   │   ├── __init__.py
-│   │   ├── vl_client.py        # 通义千问 VL
-│   │   ├── paddle_ocr.py       # PaddleOCR 备用
-│   │   └── chunker.py          # OCR 结果分块
-│   ├── knowledge/
-│   │   ├── __init__.py
-│   │   ├── schema.py           # Chunk / KnowledgeGraph 数据模型
-│   │   ├── extractor.py        # 从 OCR 结果提取结构化信息
-│   │   ├── indexer.py          # Embedding + 索引
-│   │   └── retriever.py        # 场景检索
-│   └── agent/
-│       ├── __init__.py
-│       ├── persona.py          # 搭子人设
-│       ├── prompt.py           # Prompt 模板
-│       └── companion.py        # Agent 核心逻辑
-├── tests/
-│   ├── test_scraper.py
-│   ├── test_ocr.py
-│   ├── test_knowledge.py
-│   └── test_agent.py
-├── .env.example
-├── requirements.txt
-└── README.md
-```
+结构见 `.loom/STRUCTURE.md`。运行入口：
+- `scripts/seed_index.py` — 从 data/mock 或 data/processed 构建索引。
+- `scripts/chat.py` — CLI 单轮/多轮问答 demo。

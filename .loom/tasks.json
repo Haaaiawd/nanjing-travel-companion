@@ -1,0 +1,446 @@
+{
+  "schema_version": 2,
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Loom scaffolding + design docs",
+      "outcome": ".loom/ filled: PROJECT.md, STRUCTURE.md, DECISIONS.md, deliverables, and rewritten design/*.md covering all four modules.",
+      "acceptance": [
+        {
+          "criterion": ".loom/PROJECT.md and STRUCTURE.md describe the real project, not template text",
+          "verify_by": "read both files",
+          "evidence": "Both files rewritten: PROJECT.md has intended result/boundaries/doc map; STRUCTURE.md maps src/data/tests layout"
+        },
+        {
+          "criterion": "design/ contains PROJECT/SYSTEM/SCRAPER/OCR/KNOWLEDGE/AGENT docs rewritten per current brief",
+          "verify_by": "ls .loom/design && grep for doubao/AI Ping in OCR.md",
+          "evidence": "6 docs rewritten/created; OCR.md uses doubao-2.1 via AI Ping OpenAI-compatible endpoint"
+        }
+      ],
+      "done_when": [],
+      "boundaries": [
+        "does not touch src/"
+      ],
+      "depends_on": [],
+      "reads": [
+        ".loom/design/task-brief-init.md"
+      ],
+      "touches": [
+        ".loom/PROJECT.md",
+        ".loom/STRUCTURE.md",
+        ".loom/DECISIONS.md",
+        ".loom/design/"
+      ],
+      "implements": ".loom/PROJECT.md#Design document map",
+      "design_exemption": "",
+      "capability_hooks": [],
+      "capability_exemption": "",
+      "integrity_version": 1,
+      "covers": [],
+      "status": "done",
+      "progress": {
+        "completed": [],
+        "current": "complete",
+        "next": ""
+      },
+      "evidence": [
+        "PROJECT.md/STRUCTURE.md/DECISIONS.md filled with real content; design/ has PROJECT,SYSTEM,SCRAPER,OCR,KNOWLEDGE,AGENT rewritten per brief (doubao via AI Ping, PRISMIX layers, offline-testable providers)",
+        {
+          "type": "acceptance_results",
+          "results": [
+            {
+              "criterion": ".loom/PROJECT.md and STRUCTURE.md describe the real project, not template text",
+              "evidence": "Both files rewritten: PROJECT.md has intended result/boundaries/doc map; STRUCTURE.md maps src/data/tests layout"
+            },
+            {
+              "criterion": "design/ contains PROJECT/SYSTEM/SCRAPER/OCR/KNOWLEDGE/AGENT docs rewritten per current brief",
+              "evidence": "6 docs rewritten/created; OCR.md uses doubao-2.1 via AI Ping OpenAI-compatible endpoint"
+            }
+          ],
+          "at": "2026-09-22T17:06:14.955Z"
+        }
+      ],
+      "created_at": "2026-09-22T17:05:44.337Z",
+      "updated_at": "2026-09-22T17:06:14.955Z",
+      "completed_at": "2026-09-22T17:06:14.955Z"
+    },
+    {
+      "id": "TASK-002",
+      "title": "Scraper module",
+      "outcome": "src/scraper can fetch XHS notes via injectable transport with rate limiting, UA rotation, cookies; images download to data/raw/images; note JSON to data/raw/notes.",
+      "acceptance": [
+        {
+          "criterion": "Note model serializes to required JSON (note_id/title/images/text/tags/likes/created_at)",
+          "verify_by": "pytest tests/test_scraper.py",
+          "evidence": "test_note_roundtrip_schema + test_normalize_note_variants pass"
+        },
+        {
+          "criterion": "rate limiter enforces min interval; UA rotates; cookies injected into headers",
+          "verify_by": "pytest tests/test_scraper.py",
+          "evidence": "test_rate_limiter_* + test_websource_headers_rotate_and_cookie + test_websource_auth_error_no_retry pass"
+        }
+      ],
+      "done_when": [],
+      "boundaries": [
+        "no real network calls in tests",
+        "no changes outside src/scraper and data/"
+      ],
+      "depends_on": [],
+      "reads": [
+        ".loom/design/SCRAPER.md"
+      ],
+      "touches": [
+        "src/scraper/",
+        "data/raw/"
+      ],
+      "implements": ".loom/design/SCRAPER.md",
+      "design_exemption": "",
+      "capability_hooks": [],
+      "capability_exemption": "",
+      "integrity_version": 1,
+      "covers": [
+        "DLV-001"
+      ],
+      "status": "done",
+      "progress": {
+        "completed": [],
+        "current": "complete",
+        "next": ""
+      },
+      "evidence": [
+        "test_note_roundtrip_schema + test_normalize_note_variants pass",
+        "test_rate_limiter_* + test_websource_headers_rotate_and_cookie + test_websource_auth_error_no_retry pass",
+        {
+          "type": "acceptance_results",
+          "results": [
+            {
+              "criterion": "Note model serializes to required JSON (note_id/title/images/text/tags/likes/created_at)",
+              "evidence": "test_note_roundtrip_schema + test_normalize_note_variants pass"
+            },
+            {
+              "criterion": "rate limiter enforces min interval; UA rotates; cookies injected into headers",
+              "evidence": "test_rate_limiter_* + test_websource_headers_rotate_and_cookie + test_websource_auth_error_no_retry pass"
+            }
+          ],
+          "at": "2026-09-22T17:17:37.706Z"
+        }
+      ],
+      "created_at": "2026-09-22T17:05:44.337Z",
+      "updated_at": "2026-09-22T17:17:37.706Z",
+      "completed_at": "2026-09-22T17:17:37.706Z"
+    },
+    {
+      "id": "TASK-003",
+      "title": "OCR / multimodal understanding module",
+      "outcome": "src/ocr turns note images into structured chunk drafts via OpenAI-compatible VL client (doubao via AI Ping default), with PaddleOCR fallback hook and sha256 result cache.",
+      "acceptance": [
+        {
+          "criterion": "VL client posts OpenAI-compatible chat payload with image_url data-uri and parses JSON response",
+          "verify_by": "pytest tests/test_ocr.py",
+          "evidence": "test_vl_payload_is_openai_compatible + test_parse_insight_json_fenced_and_bare pass"
+        },
+        {
+          "criterion": "pipeline dedupes repeated images via cache and emits chunk dicts with structured_data",
+          "verify_by": "pytest tests/test_ocr.py",
+          "evidence": "test_pipeline_splits_locations_and_caches: vl.calls==['n1_0.jpg'], cache hit=1"
+        }
+      ],
+      "done_when": [],
+      "boundaries": [
+        "PaddleOCR is optional import, absence must not break module",
+        "no real API calls in tests"
+      ],
+      "depends_on": [],
+      "reads": [
+        ".loom/design/OCR.md"
+      ],
+      "touches": [
+        "src/ocr/",
+        "data/cache/ocr/"
+      ],
+      "implements": ".loom/design/OCR.md",
+      "design_exemption": "",
+      "capability_hooks": [],
+      "capability_exemption": "",
+      "integrity_version": 1,
+      "covers": [
+        "DLV-002"
+      ],
+      "status": "done",
+      "progress": {
+        "completed": [],
+        "current": "complete",
+        "next": ""
+      },
+      "evidence": [
+        "test_vl_payload_is_openai_compatible + test_parse_insight_json_fenced_and_bare pass",
+        "test_pipeline_splits_locations_and_caches: vl.calls==['n1_0.jpg'], cache hit=1",
+        {
+          "type": "acceptance_results",
+          "results": [
+            {
+              "criterion": "VL client posts OpenAI-compatible chat payload with image_url data-uri and parses JSON response",
+              "evidence": "test_vl_payload_is_openai_compatible + test_parse_insight_json_fenced_and_bare pass"
+            },
+            {
+              "criterion": "pipeline dedupes repeated images via cache and emits chunk dicts with structured_data",
+              "evidence": "test_pipeline_splits_locations_and_caches: vl.calls==['n1_0.jpg'], cache hit=1"
+            }
+          ],
+          "at": "2026-09-22T17:17:37.821Z"
+        }
+      ],
+      "created_at": "2026-09-22T17:05:44.337Z",
+      "updated_at": "2026-09-22T17:17:37.821Z",
+      "completed_at": "2026-09-22T17:17:37.821Z"
+    },
+    {
+      "id": "TASK-004",
+      "title": "Knowledge module",
+      "outcome": "src/knowledge provides Chunk schema, embedding providers (dashscope + offline hash), JSON index build/load, cosine top-k scenario retrieval with filters, and POI relation graph.",
+      "acceptance": [
+        {
+          "criterion": "chunk schema round-trips JSON; graph builds nearby/tag relations",
+          "verify_by": "pytest tests/test_knowledge.py",
+          "evidence": "test_chunk_schema_roundtrip + test_graph_aliases_nearby_and_build pass"
+        },
+        {
+          "criterion": "retriever ranks 明孝陵 chunks top for a 明孝陵 query and respects type/season filters",
+          "verify_by": "pytest tests/test_knowledge.py",
+          "evidence": "test_retriever_poi_query + test_retriever_type_and_alias pass"
+        }
+      ],
+      "done_when": [],
+      "boundaries": [
+        "pure-python cosine, no numpy required",
+        "offline provider is deterministic"
+      ],
+      "depends_on": [],
+      "reads": [
+        ".loom/design/KNOWLEDGE.md"
+      ],
+      "touches": [
+        "src/knowledge/",
+        "data/index/",
+        "data/processed/"
+      ],
+      "implements": ".loom/design/KNOWLEDGE.md",
+      "design_exemption": "",
+      "capability_hooks": [],
+      "capability_exemption": "",
+      "integrity_version": 1,
+      "covers": [
+        "DLV-003"
+      ],
+      "status": "done",
+      "progress": {
+        "completed": [],
+        "current": "complete",
+        "next": ""
+      },
+      "evidence": [
+        "test_chunk_schema_roundtrip + test_graph_aliases_nearby_and_build pass",
+        "test_retriever_poi_query + test_retriever_type_and_alias pass",
+        {
+          "type": "acceptance_results",
+          "results": [
+            {
+              "criterion": "chunk schema round-trips JSON; graph builds nearby/tag relations",
+              "evidence": "test_chunk_schema_roundtrip + test_graph_aliases_nearby_and_build pass"
+            },
+            {
+              "criterion": "retriever ranks 明孝陵 chunks top for a 明孝陵 query and respects type/season filters",
+              "evidence": "test_retriever_poi_query + test_retriever_type_and_alias pass"
+            }
+          ],
+          "at": "2026-09-22T17:17:37.925Z"
+        }
+      ],
+      "created_at": "2026-09-22T17:05:44.337Z",
+      "updated_at": "2026-09-22T17:17:37.925Z",
+      "completed_at": "2026-09-22T17:17:37.925Z"
+    },
+    {
+      "id": "TASK-005",
+      "title": "Agent module",
+      "outcome": "src/agent assembles PRISMIX 3-layer prompt (persona core / knowledge adaptation / scene modules), triggers retrieval, calls injectable LLM client, returns companion-style replies.",
+      "acceptance": [
+        {
+          "criterion": "prompt contains persona marker and injected chunks for POI queries",
+          "verify_by": "pytest tests/test_agent.py",
+          "evidence": "test_prompt_three_layers: 金陵搭子 + 我刷到的攻略 + poi_play all present"
+        },
+        {
+          "criterion": "end-to-end: '明孝陵怎么玩' produces reply citing retrieved knowledge, in 搭子 tone rules",
+          "verify_by": "pytest tests/test_agent.py",
+          "evidence": "test_end_to_end_companion: reply contains 我刷到 + 没去过, cites chunk content"
+        }
+      ],
+      "done_when": [],
+      "boundaries": [
+        "single-point QA only, no multi-day planning logic",
+        "mock LLM for tests"
+      ],
+      "depends_on": [],
+      "reads": [
+        ".loom/design/AGENT.md"
+      ],
+      "touches": [
+        "src/agent/"
+      ],
+      "implements": ".loom/design/AGENT.md",
+      "design_exemption": "",
+      "capability_hooks": [],
+      "capability_exemption": "",
+      "integrity_version": 1,
+      "covers": [
+        "DLV-004"
+      ],
+      "status": "done",
+      "progress": {
+        "completed": [],
+        "current": "complete",
+        "next": ""
+      },
+      "evidence": [
+        "test_prompt_three_layers: 金陵搭子 + 我刷到的攻略 + poi_play all present",
+        "test_end_to_end_companion: reply contains 我刷到 + 没去过, cites chunk content",
+        {
+          "type": "acceptance_results",
+          "results": [
+            {
+              "criterion": "prompt contains persona marker and injected chunks for POI queries",
+              "evidence": "test_prompt_three_layers: 金陵搭子 + 我刷到的攻略 + poi_play all present"
+            },
+            {
+              "criterion": "end-to-end: '明孝陵怎么玩' produces reply citing retrieved knowledge, in 搭子 tone rules",
+              "evidence": "test_end_to_end_companion: reply contains 我刷到 + 没去过, cites chunk content"
+            }
+          ],
+          "at": "2026-09-22T17:17:38.030Z"
+        }
+      ],
+      "created_at": "2026-09-22T17:05:44.337Z",
+      "updated_at": "2026-09-22T17:17:38.031Z",
+      "completed_at": "2026-09-22T17:17:38.031Z"
+    },
+    {
+      "id": "TASK-006",
+      "title": "Mock dataset",
+      "outcome": "data/mock holds 6+ notes covering 明孝陵/夫子庙/老门东/玄武湖/总统府, plus processed chunks.json and knowledge_graph.json usable offline.",
+      "acceptance": [
+        {
+          "criterion": "every required POI appears in mock chunks with location/type/content/tags/structured_data",
+          "verify_by": "python -c script asserting coverage",
+          "evidence": "test_mock_data_covers_required_pois: 明孝陵/夫子庙/老门东/玄武湖/总统府 all covered; 6 notes + 12 chunks"
+        }
+      ],
+      "done_when": [],
+      "boundaries": [
+        "mock notes use scraper output schema"
+      ],
+      "depends_on": [],
+      "reads": [
+        ".loom/PROJECT.md"
+      ],
+      "touches": [
+        "data/mock/",
+        "data/processed/"
+      ],
+      "implements": ".loom/design/SYSTEM.md#D3",
+      "design_exemption": "",
+      "capability_hooks": [],
+      "capability_exemption": "",
+      "integrity_version": 1,
+      "covers": [
+        "DLV-005"
+      ],
+      "status": "done",
+      "progress": {
+        "completed": [],
+        "current": "complete",
+        "next": ""
+      },
+      "evidence": [
+        "test_mock_data_covers_required_pois: 明孝陵/夫子庙/老门东/玄武湖/总统府 all covered; 6 notes + 12 chunks",
+        {
+          "type": "acceptance_results",
+          "results": [
+            {
+              "criterion": "every required POI appears in mock chunks with location/type/content/tags/structured_data",
+              "evidence": "test_mock_data_covers_required_pois: 明孝陵/夫子庙/老门东/玄武湖/总统府 all covered; 6 notes + 12 chunks"
+            }
+          ],
+          "at": "2026-09-22T17:17:38.132Z"
+        }
+      ],
+      "created_at": "2026-09-22T17:05:44.337Z",
+      "updated_at": "2026-09-22T17:17:38.132Z",
+      "completed_at": "2026-09-22T17:17:38.132Z"
+    },
+    {
+      "id": "TASK-007",
+      "title": "Test suite green",
+      "outcome": "pytest runs all module tests offline and passes; scripts/seed_index.py builds index from mock data; scripts/chat.py demos a QA turn.",
+      "acceptance": [
+        {
+          "criterion": "pytest exits 0",
+          "verify_by": ".venv/bin/python -m pytest -q",
+          "evidence": "29 passed in 0.08s"
+        },
+        {
+          "criterion": "seed script produces embeddings.json + search_index.json from mock chunks",
+          "verify_by": "run script, check data/index files",
+          "evidence": "seed_index.py ran: 12 chunks, 14 graph locations, 12 vectors written"
+        }
+      ],
+      "done_when": [],
+      "boundaries": [
+        "no network, no API keys required"
+      ],
+      "depends_on": [],
+      "reads": [
+        ".loom/STRUCTURE.md"
+      ],
+      "touches": [
+        "tests/",
+        "scripts/"
+      ],
+      "implements": ".loom/STRUCTURE.md#Tests",
+      "design_exemption": "",
+      "capability_hooks": [],
+      "capability_exemption": "",
+      "integrity_version": 1,
+      "covers": [
+        "DLV-006"
+      ],
+      "status": "done",
+      "progress": {
+        "completed": [],
+        "current": "complete",
+        "next": ""
+      },
+      "evidence": [
+        "29 passed in 0.08s",
+        "seed_index.py ran: 12 chunks, 14 graph locations, 12 vectors written",
+        {
+          "type": "acceptance_results",
+          "results": [
+            {
+              "criterion": "pytest exits 0",
+              "evidence": "29 passed in 0.08s"
+            },
+            {
+              "criterion": "seed script produces embeddings.json + search_index.json from mock chunks",
+              "evidence": "seed_index.py ran: 12 chunks, 14 graph locations, 12 vectors written"
+            }
+          ],
+          "at": "2026-09-22T17:17:38.228Z"
+        }
+      ],
+      "created_at": "2026-09-22T17:05:44.337Z",
+      "updated_at": "2026-09-22T17:17:38.228Z",
+      "completed_at": "2026-09-22T17:17:38.228Z"
+    }
+  ]
+}

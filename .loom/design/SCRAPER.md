@@ -1,79 +1,74 @@
-# 小红书 Scraper 设计
+# Scraper 设计 — 小红书攻略抓取
 
-## 目标
-抓取小红书南京旅游攻略笔记（图文混合），为知识库提供原始数据。
+## 职责
 
-## 数据特征
-- **内容形式**：手帐风图文笔记，图片为主，文字为辅
-- **典型结构**：
-  - 封面图（标题/亮点）
-  - 手帐排版图（路线/美食/住宿清单）
-  - 正文（少量，往往只是图片补充）
-  - 评论区（有时有补充信息）
-- **数量目标**：MVP 50–100 篇，覆盖主要 POI
+把小红书南京攻略笔记变成干净的本地素材：笔记 JSON 落 `data/raw/notes/`，
+图片落 `data/raw/images/`。**只搬运，不理解** —— 内容语义是 ocr 模块的事。
 
-## 抓取策略
+## 数据源抽象：`NoteSource`
 
-### 关键词搜索
-```
-南京旅游攻略
-南京7天6晚
-南京美食
-南京拍照
-明孝陵
-夫子庙
-老门东
-...
+抓取渠道易变（反爬升级、账号封禁、工具换代），所以抓取入口定义为协议：
+
+```python
+class NoteSource(Protocol):
+    def search(self, keyword: str, limit: int) -> list[str]: ...   # → note_ids
+    def fetch_note(self, note_id: str) -> RawNote: ...             # → 原始 dict
 ```
 
-### 反爬措施
-1. **限速**：2 秒/请求，避免被限流
-2. **随机 UA**：模拟浏览器
-3. **Cookies**：需要登录态 cookies（用户提供）
-4. **图片下载**：批量下载到 `data/raw/images/`
+三个实现：
 
-### 输出格式
+| 实现 | 用途 | 说明 |
+|------|------|------|
+| `FixtureSource` | 测试/离线开发 | 从 `data/mock/notes/*.json` 读，支持关键词过滤 |
+| `WebSource` | 真实抓取 | requests + cookies 打 web 端接口，内建反爬策略 |
+| `MCPSource` | 备选 | 本地 xiaohongshu-mcp 服务（localhost:18060）若可用 |
+
+`XhsScraper` 编排任意 source：`scrape(keywords) → Note → save_note() +
+download_images()`。切换渠道不改编排代码。
+
+## 反爬设计（WebSource 内建）
+
+小红书风控维度：请求频率、UA 指纹、登录态、签名。对应策略：
+
+1. **限速**：`RateLimiter(min_interval=2.0, jitter=1.5)` —— 每次请求前 sleep
+   到 `min_interval + uniform(0, jitter)`，令牌消耗串行化。图片下载单独一个
+   更宽松的 limiter。
+2. **UA 轮换**：`UA_POOL` 内置若干真实桌面 Chrome/Safari UA，每请求随机取，
+   同时附带匹配的 `Accept`/`Accept-Language`/`Referer` 头。
+3. **Cookies**：从 env `XHS_COOKIES` 注入（用户手动从浏览器导出）。
+   无 cookies 时 WebSource 仍可构造，但调用方应预期 403/登录墙。
+4. **重试**：429/5xx → 指数退避（2s/4s/8s，最多 3 次）；明确 401/403 →
+   抛 `AuthError` 提示换 cookies，不重试。
+5. **幂等**：`note_id` 已存在于 `data/raw/notes/` 则跳过抓取；图片按
+   `{note_id}_{idx}.jpg` 命名，已存在则跳过下载。
+
+## 数据格式
+
+### 落盘 Note（data/raw/notes/{note_id}.json）
 ```json
 {
-  "note_id": "xxx",
-  "title": "南京7天6晚超详细攻略",
-  "author": "xxx",
-  "url": "https://www.xiaohongshu.com/discovery/item/xxx",
-  "images": ["url1", "url2", ...],
-  "text": "正文文字（如有）",
-  "tags": ["南京", "旅游", "攻略"],
-  "likes": 1234,
-  "created_at": "2026-09-22",
-  "crawled_at": "2026-09-22T10:00:00Z"
+  "note_id": "xhs_abc123",
+  "title": "南京3天2晚保姆级攻略",
+  "author": "小熊软糖",
+  "url": "https://www.xiaohongshu.com/explore/abc123",
+  "images": ["data/raw/images/xhs_abc123_0.jpg", "..."],
+  "text": "正文文字（可能很短）",
+  "tags": ["南京旅游", "攻略", "明孝陵"],
+  "likes": 2341,
+  "created_at": "2026-08-15",
+  "crawled_at": "2026-09-22T10:00:00"
 }
 ```
 
-## 技术选型
+`images` 存的是**本地相对路径**（下载完成后），不是原始 URL —— 下游 ocr 直接读盘。
+原始 CDN URL 保留在 `image_urls` 字段备查。
 
-### 方案 A：xiaohongshu-mcp（已有）
-- 优点：已部署在本地（localhost:18060），有 API 接口
-- 缺点：登录不稳定，可能被限流
-- 适用：快速原型
+### 关键词集（默认搜索计划）
+`南京旅游攻略` `南京美食` `南京拍照` `明孝陵` `中山陵` `夫子庙` `老门东`
+`玄武湖` `总统府` `南京秋天` —— 覆盖主要 POI + 场景词。
 
-### 方案 B：Playwright + 手动 cookies
-- 优点：浏览器渲染，能处理动态内容
-- 缺点：需要维护 cookies，较重
-- 适用：长期稳定抓取
+## 边界
 
-### 推荐：混合方案
-1. 先用 xiaohongshu-mcp 快速抓取（如果可用）
-2. 如果失败，切 Playwright + cookies
-3. 图片统一下载到本地，供 OCR 使用
-
-## 目录结构
-```
-data/raw/
-├── notes/
-│   ├── note_001.json
-│   ├── note_002.json
-│   └── ...
-└── images/
-    ├── note_001_img_001.jpg
-    ├── note_001_img_002.jpg
-    └── ...
-```
+- 不解析图片内容、不做 dedup 内容判断（同图不同笔记是合法重复，ocr 缓存处理）。
+- 真实抓取不做验收；验收的是限速器行为、Note 序列化格式、下载器幂等、
+  FixtureSource 驱动全流程。

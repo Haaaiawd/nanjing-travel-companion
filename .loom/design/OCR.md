@@ -1,74 +1,77 @@
-# OCR 与图片理解设计
+# OCR / 多模态理解设计
 
-## 目标
-从手帐风图片中提取结构化攻略信息（地点、活动、时间、美食、贴士等）。
+## 职责
 
-## 输入
-- 小红书笔记图片（封面图、手帐排版图）
-- 图片格式：JPG/PNG，多为竖版（3:4 或 9:16）
-- 图片特点：手绘风、贴纸、标签、高亮
+把 `data/raw/images/` 里的手帐风图片 + 笔记正文变成 `ChunkDraft` 列表。
+核心判断：**小红书的攻略信息主要在图上，不在正文里** —— 所以视觉理解是主链路，
+文字 OCR 是兜底。
 
-## 处理流程
+## 管线
 
-### 阶段 1：OCR 文字提取
-- **首选**：PaddleOCR（本地，免费，中文手写体识别较好）
-- **备用**：百炼通用 OCR API
-- 输出：图片中的文字 + 坐标框
+```
+Note
+ ├─ images[] ──▶ per-image 理解（缓存命中则跳过模型调用）
+ │                ├─ VLClient.understand(image) ──▶ ImageInsight
+ │                └─ 失败 → PaddleOCR.extract_text() ──▶ text-only 结构化
+ ├─ text ──────▶ 笔记正文 chunk（type=text，若有信息量）
+ └─ merge ────▶ ChunkDraft[]（每张有效图一条 + 正文一条）
+```
 
-### 阶段 2：视觉理解
-- **首选**：通义千问 VL（qwen-vl-max）
-- **输入**：原始图片 + OCR 文字
-- **输出**：结构化信息
+## VL 理解（主链路）
+
+- **Provider**：OpenAI 兼容端点。默认 AI Ping 平台 + `doubao-2.1-pro`
+  （批量处理可切 `doubao-2.1-flash` 省钱），env 可换任意兼容服务。
+- **请求形态**：`chat/completions`，message content 为
+  `[{type:image_url,image_url:{url:"data:image/jpeg;base64,..."}},
+    {type:text,text:PROMPT}]`。
+- **Prompt 要点**：明确告知这是小红书旅游攻略手帐图，要求**只输出 JSON**：
+  ```json
+  {"locations": [], "activities": [], "time_hint": "", "food": [],
+   "tips": [], "tags": [], "scene_type": "POI|美食|路线|避坑|住宿|交通|其他",
+   "summary": "一句话讲这张图在推荐什么"}
+  ```
+- **解析**：宽容解析 —— 先找 ```json 代码块，再退化到首尾花括号切片；
+  字段缺失填默认值；解析失败返回 `confidence=0` 的草稿而不是抛错
+  （坏图不该阻塞整篇笔记）。
+
+## 缓存策略
+
+- key = 图片内容 `sha256`（不是文件名 —— 同图跨笔记复用是常态）。
+- 落盘 `data/cache/ocr/{sha256}.json`，命中直接返回 `ImageInsight`。
+- 缓存命中不进模型、不计失败；`OCRCache.stats()` 供管线汇报命中率。
+
+## PaddleOCR 降级
+
+- `paddle_fallback.py` 用**可选导入**：`import paddleocr` 失败时
+  `PaddleFallback.available == False`，管线跳过该路径。绝不因此 break 构建。
+- OCR 纯文本结果交给一个简单 `structure_text()`：正则/关键词把文本切成
+  locations/activities/tips 草稿（降级产物质量低于 VL，`confidence` 打 0.5）。
+
+## ChunkDraft 产出契约
 
 ```json
 {
-  "locations": ["明孝陵", "石象路"],
-  "activities": ["拍照", "散步"],
-  "time": "10月中下旬",
-  "tips": ["早上8点前到避开人流"],
-  "food": [],
-  "sentiment": "positive",
+  "source_note_id": "xhs_abc123",
+  "source_image": "data/raw/images/xhs_abc123_0.jpg",
+  "location": "明孝陵",                // locations[0]，多 location 时拆多 chunk
+  "type": "POI",
+  "content": "summary + tips 拼成的自然语言段",
+  "tags": ["秋天", "拍照"],
+  "structured_data": {"locations": [...], "activities": [...],
+                      "time_hint": "...", "food": [...], "tips": [...]},
   "confidence": 0.9
 }
 ```
 
-### 阶段 3：结构化
-- 将视觉理解结果 + OCR 文字合并为 Chunk
-- 提取 tags（场景标签）
-- 关联到具体 POI
+- 一张图识别出多个 location 时**按 location 拆 chunk**（各 chunk 共享
+  structured_data，location 字段不同）——检索按 location 缩圈才准。
+- `content` 是给 embedding 和 LLM 看的自然语言；`structured_data` 是给
+  过滤和图谱看的字段。两者都保留。
+- 笔记正文独立成 chunk（`source_image=null`，`type` 从关键词推断），
+  保证纯文字笔记也能进库。
 
-## 手帐风图片特点
-- **高亮文字**：关键信息用荧光笔/贴纸突出
-- **手写体**：部分文字是手写，OCR 需要特殊处理
-- **布局不固定**：每篇笔记排版不同，不能用固定模板
-- **多图关联**：一张图可能是路线图，另一张是美食清单，需要关联
+## 边界
 
-## 技术选型
-
-| 组件 | 选型 | 理由 |
-|------|------|------|
-| 视觉理解 | 通义千问 VL (qwen-vl-max) | 能理解手帐风布局 + 文字 |
-| OCR 备用 | PaddleOCR | 本地部署，中文手写体好 |
-| 图片缓存 | 本地文件系统 | 避免重复下载 |
-
-## 输出格式
-
-```json
-{
-  "chunk_id": "chunk_001",
-  "source_note_id": "note_abc123",
-  "source_image": "note_001_img_003.jpg",
-  "location": "明孝陵",
-  "type": "POI",
-  "content": "明孝陵石象路秋天超美，10月中下旬最佳，建议早上8点前到避开人流",
-  "tags": ["秋天", "拍照", "石象路", "清晨"],
-  "structured_data": {
-    "locations": ["明孝陵", "石象路"],
-    "activities": ["拍照"],
-    "time": "10月中下旬",
-    "tips": ["早上8点前到避开人流"]
-  },
-  "confidence": 0.9,
-  "created_at": "2026-09-22"
-}
-```
+- 不做图片质量过滤（模糊图 VL 自己会给出低 confidence）。
+- 不做跨笔记内容去重（相似攻略是有效信号，检索层 top-k 自然消化）。
+- 不写 knowledge 索引 —— 产出止步于 `data/processed/chunks.json`。

@@ -1,0 +1,68 @@
+"""图片下载器：把 Note.image_urls 落成 data/raw/images/{note_id}_{idx}.{ext}。"""
+from __future__ import annotations
+
+from pathlib import Path
+
+import requests
+
+from .. import config
+from .models import Note
+from .xhs_client import RateLimiter, UA_POOL
+import random
+
+
+_EXT_BY_MIME = {
+    "image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp",
+    "image/gif": ".gif",
+}
+
+
+class ImageDownloader:
+    def __init__(
+        self,
+        images_dir: Path | str = config.RAW_IMAGES_DIR,
+        session: requests.Session | None = None,
+        limiter: RateLimiter | None = None,
+        timeout: float = 20.0,
+    ) -> None:
+        self.images_dir = Path(images_dir)
+        self.session = session or requests.Session()
+        self.limiter = limiter or RateLimiter(min_interval=0.5, jitter=0.5)
+        self.timeout = timeout
+
+    def _path_for(self, note_id: str, idx: int, url: str, ctype: str = "") -> Path:
+        ext = _EXT_BY_MIME.get(ctype.split(";")[0].strip())
+        if not ext:
+            ext = "." + url.split("?")[0].rsplit(".", 1)[-1].lower()
+            if ext not in (".jpg", ".jpeg", ".png", ".webp", ".gif"):
+                ext = ".jpg"
+        return self.images_dir / f"{note_id}_{idx}{ext}"
+
+    def download(self, note: Note, referer: str = "") -> list[str]:
+        """下载 note.image_urls，填充 note.images（本地路径字符串），幂等。"""
+        self.images_dir.mkdir(parents=True, exist_ok=True)
+        local: list[str] = []
+        headers = {
+            "User-Agent": random.choice(UA_POOL),
+            "Referer": referer or "https://www.xiaohongshu.com/",
+        }
+        for idx, url in enumerate(note.image_urls):
+            existing = sorted(self.images_dir.glob(f"{note.note_id}_{idx}.*"))
+            if existing:
+                local.append(str(existing[0]))
+                continue
+            self.limiter.wait()
+            try:
+                resp = self.session.get(
+                    url, headers=headers, timeout=self.timeout, stream=True
+                )
+                resp.raise_for_status()
+            except requests.RequestException:
+                continue  # 单图失败不阻塞
+            path = self._path_for(
+                note.note_id, idx, url, resp.headers.get("Content-Type", "")
+            )
+            path.write_bytes(resp.content)
+            local.append(str(path))
+        note.images = local
+        return local

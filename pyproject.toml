@@ -1,0 +1,9 @@
+[project]
+name = "nanjing-travel-companion"
+version = "0.1.0"
+description = "南京旅游搭子 — XHS-guide-powered conversational companion"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "deliverables": [
+    {
+      "id": "DLV-001",
+      "slug": "scraper-module",
+      "title": "XHS scraper: notes+images acquisition with anti-crawl",
+      "kind": "module",
+      "notes": "",
+      "covered_by": [
+        "TASK-002"
+      ],
+      "created_at": "2026-09-22T17:01:20.367Z"
+    },
+    {
+      "id": "DLV-002",
+      "slug": "ocr-module",
+      "title": "Multimodal image understanding pipeline to chunks",
+      "kind": "module",
+      "notes": "",
+      "covered_by": [
+        "TASK-003"
+      ],
+      "created_at": "2026-09-22T17:01:20.413Z"
+    },
+    {
+      "id": "DLV-003",
+      "slug": "knowledge-module",
+      "title": "Chunk store, embedding index, scenario retrieval, POI graph",
+      "kind": "module",
+      "notes": "",
+      "covered_by": [
+        "TASK-004"
+      ],
+      "created_at": "2026-09-22T17:01:20.462Z"
+    },
+    {
+      "id": "DLV-004",
+      "slug": "agent-module",
+      "title": "Companion agent: persona, PRISMIX prompt, retrieval injection",
+      "kind": "module",
+      "notes": "",
+      "covered_by": [
+        "TASK-005"
+      ],
+      "created_at": "2026-09-22T17:01:20.510Z"
+    },
+    {
+      "id": "DLV-005",
+      "slug": "mock-data",
+      "title": "Mock notes + chunks covering 5 core POIs",
+      "kind": "artifact",
+      "notes": "",
+      "covered_by": [
+        "TASK-006"
+      ],
+      "created_at": "2026-09-22T17:01:20.559Z"
+    },
+    {
+      "id": "DLV-006",
+      "slug": "test-suite",
+      "title": "Offline test suite for all modules",
+      "kind": "verification",
+      "notes": "",
+      "covered_by": [
+        "TASK-007"
+      ],
+      "created_at": "2026-09-22T17:01:20.609Z"
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "by_location": {
+    "明孝陵": [
+      "ck_xhs_mxl_001_0",
+      "ck_xhs_mxl_001_1",
+      "ck_xhs_mix_001_0",
+      "ck_xhs_mix_001_text"
+    ],
+    "石象路": [
+      "ck_xhs_mxl_001_0"
+    ],
+    "美龄宫": [
+      "ck_xhs_mxl_001_1"
+    ],
+    "秦淮河": [
+      "ck_xhs_fzm_001_0"
+    ],
+    "夫子庙": [
+      "ck_xhs_fzm_001_0",
+      "ck_xhs_fzm_001_1",
+      "ck_xhs_mix_001_text"
+    ],
+    "老门东": [
+      "ck_xhs_lmd_001_0",
+      "ck_xhs_lmd_001_1",
+      "ck_xhs_mix_001_text"
+    ],
+    "台城": [
+      "ck_xhs_xwh_001_0"
+    ],
+    "玄武湖": [
+      "ck_xhs_xwh_001_0",
+      "ck_xhs_mix_001_text"
+    ],
+    "总统府": [
+      "ck_xhs_ztf_001_0",
+      "ck_xhs_ztf_001_1",
+      "ck_xhs_mix_001_text"
+    ],
+    "新街口": [
+      "ck_xhs_ztf_001_1"
+    ],
+    "中山陵": [
+      "ck_xhs_mix_001_0",
+      "ck_xhs_mix_001_text"
+    ],
+    "南京": [
+      "ck_xhs_mix_001_1",
+      "ck_xhs_mix_001_text"
+    ],
+    "鸡鸣寺": [
+      "ck_xhs_mix_001_text"
+    ],
+    "南京博物院": [
+      "ck_xhs_mix_001_text"
+    ]
+  },
+  "by_type": {
+    "POI": [
+      "ck_xhs_mxl_001_0",
+      "ck_xhs_fzm_001_0",
+      "ck_xhs_lmd_001_1",
+      "ck_xhs_xwh_001_0",
+      "ck_xhs_ztf_001_0"
+    ],
+    "路线": [
+      "ck_xhs_mxl_001_1",
+      "ck_xhs_ztf_001_1",
+      "ck_xhs_mix_001_0",
+      "ck_xhs_mix_001_text"
+    ],
+    "避坑": [
+      "ck_xhs_fzm_001_1",
+      "ck_xhs_mix_001_1"
+    ],
+    "美食": [
+      "ck_xhs_lmd_001_0"
+    ]
+  },
+  "by_tag": {
+    "秋天": [
+      "ck_xhs_mxl_001_0"
+    ],
+    "拍照": [
+      "ck_xhs_mxl_001_0",
+      "ck_xhs_lmd_001_1"
+    ],
+    "清晨": [
+      "ck_xhs_mxl_001_0"
+    ],
+    "路线": [
+      "ck_xhs_mxl_001_1",
+      "ck_xhs_ztf_001_1"
+    ],
+    "钟山": [
+      "ck_xhs_mxl_001_1",
+      "ck_xhs_mix_001_0"
+    ],
+    "夜景": [
+      "ck_xhs_fzm_001_0"
+    ],
+    "秦淮河": [
+      "ck_xhs_fzm_001_0"
+    ],
+    "画舫": [
+      "ck_xhs_fzm_001_0"
+    ],
+    "避坑": [
+      "ck_xhs_fzm_001_1",
+      "ck_xhs_mix_001_1"
+    ],
+    "商业化": [
+      "ck_xhs_fzm_001_1"
+    ],
+    "美食": [
+      "ck_xhs_lmd_001_0"
+    ],
+    "小吃": [
+      "ck_xhs_lmd_001_0"
+    ],
+    "排队": [
+      "ck_xhs_lmd_001_0"
+    ],
+    "汉服": [
+      "ck_xhs_lmd_001_1"
+    ],
+    "日落": [
+      "ck_xhs_xwh_001_0"
+    ],
+    "拍照机位": [
+      "ck_xhs_xwh_001_0"
+    ],
+    "免费": [
+      "ck_xhs_xwh_001_0"
+    ],
+    "历史": [
+      "ck_xhs_ztf_001_0"
+    ],
+    "预约": [
+      "ck_xhs_ztf_001_0"
+    ],
+    "周边": [
+      "ck_xhs_ztf_001_1"
+    ],
+    "行程": [
+      "ck_xhs_mix_001_0",
+      "ck_xhs_mix_001_text"
+    ],
+    "交通": [
+      "ck_xhs_mix_001_1"
+    ],
+    "3天2晚": [
+      "ck_xhs_mix_001_text"
+    ]
+  }
+}

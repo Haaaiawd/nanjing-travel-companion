@@ -1,0 +1,407 @@
+[
+  {
+    "chunk_id": "ck_xhs_mxl_001_0",
+    "source_note_id": "xhs_mxl_001",
+    "location": "明孝陵",
+    "type": "POI",
+    "content": "石象路秋天银杏全黄像油画，10月中下旬到11月初最佳，早上8点前到避开人流",
+    "tags": [
+      "秋天",
+      "拍照",
+      "清晨"
+    ],
+    "structured_data": {
+      "locations": [
+        "明孝陵",
+        "石象路"
+      ],
+      "activities": [
+        "拍照",
+        "散步"
+      ],
+      "time_hint": "10月中下旬/8点前",
+      "food": [],
+      "tips": [
+        "8点前到避开人流"
+      ]
+    },
+    "source_ref": {
+      "note_title": "明孝陵石象路秋天真的封神了🍂",
+      "note_url": "https://www.xiaohongshu.com/explore/xhs_mxl_001",
+      "image": "xhs_mxl_001_0.jpg"
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-22"
+  },
+  {
+    "chunk_id": "ck_xhs_mxl_001_1",
+    "source_note_id": "xhs_mxl_001",
+    "location": "明孝陵",
+    "type": "路线",
+    "content": "神道走完顺路去美龄宫，钟山风景区几个点可以串起来逛",
+    "tags": [
+      "路线",
+      "钟山"
+    ],
+    "structured_data": {
+      "locations": [
+        "明孝陵",
+        "美龄宫"
+      ],
+      "activities": [
+        "步行游览"
+      ],
+      "time_hint": "半天",
+      "food": [],
+      "tips": [
+        "联票更划算"
+      ]
+    },
+    "source_ref": {
+      "note_title": "明孝陵石象路秋天真的封神了🍂",
+      "note_url": "https://www.xiaohongshu.com/explore/xhs_mxl_001",
+      "image": "xhs_mxl_001_1.jpg"
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-22"
+  },
+  {
+    "chunk_id": "ck_xhs_fzm_001_0",
+    "source_note_id": "xhs_fzm_001",
+    "location": "夫子庙",
+    "type": "POI",
+    "content": "夫子庙要晚上去，秦淮河画舫80块值回票价，两岸灯亮才是金陵",
+    "tags": [
+      "夜景",
+      "秦淮河",
+      "画舫"
+    ],
+    "structured_data": {
+      "locations": [
+        "夫子庙",
+        "秦淮河"
+      ],
+      "activities": [
+        "夜游",
+        "画舫"
+      ],
+      "time_hint": "晚上",
+      "food": [],
+      "tips": [
+        "画舫80元"
+      ]
+    },
+    "source_ref": {
+      "note_title": "夫子庙夜游保姆级攻略🏮别再白天去了",
+      "note_url": "https://www.xiaohongshu.com/explore/xhs_fzm_001",
+      "image": "xhs_fzm_001_0.jpg"
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-22"
+  },
+  {
+    "chunk_id": "ck_xhs_fzm_001_1",
+    "source_note_id": "xhs_fzm_001",
+    "location": "夫子庙",
+    "type": "避坑",
+    "content": "夫子庙商业化重，正街小吃别买，往旁边小巷钻才靠谱",
+    "tags": [
+      "避坑",
+      "商业化"
+    ],
+    "structured_data": {
+      "locations": [
+        "夫子庙"
+      ],
+      "activities": [
+        "逛街"
+      ],
+      "time_hint": "",
+      "food": [
+        "正街小吃"
+      ],
+      "tips": [
+        "正街小吃贵且不正宗"
+      ]
+    },
+    "source_ref": {
+      "note_title": "夫子庙夜游保姆级攻略🏮别再白天去了",
+      "note_url": "https://www.xiaohongshu.com/explore/xhs_fzm_001",
+      "image": "xhs_fzm_001_0.jpg"
+    },
+    "confidence": 0.85,
+    "created_at": "2026-09-22"
+  },
+  {
+    "chunk_id": "ck_xhs_lmd_001_0",
+    "source_note_id": "xhs_lmd_001",
+    "location": "老门东",
+    "type": "美食",
+    "content": "蒋有记锅贴、小郑酥烧饼、陆氏梅花糕都要排队但值得",
+    "tags": [
+      "美食",
+      "小吃",
+      "排队"
+    ],
+    "structured_data": {
+      "locations": [
+        "老门东"
+      ],
+      "activities": [
+        "逛吃"
+      ],
+      "time_hint": "下午",
+      "food": [
+        "蒋有记锅贴",
+        "小郑酥烧饼",
+        "陆氏梅花糕"
+      ],
+      "tips": [
+        "饭点排队久"
+      ]
+    },
+    "source_ref": {
+      "note_title": "老门东逛吃地图🍜本地人都在这几家排队",
+      "note_url": "https://www.xiaohongshu.com/explore/xhs_lmd_001",
+      "image": "xhs_lmd_001_0.jpg"
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-22"
+  },
+  {
+    "chunk_id": "ck_xhs_lmd_001_1",
+    "source_note_id": "xhs_lmd_001",
+    "location": "老门东",
+    "type": "POI",
+    "content": "巷子里汉服租赁拍照出片，下午三四点光线最好",
+    "tags": [
+      "拍照",
+      "汉服"
+    ],
+    "structured_data": {
+      "locations": [
+        "老门东"
+      ],
+      "activities": [
+        "拍照",
+        "汉服体验"
+      ],
+      "time_hint": "下午3-4点",
+      "food": [],
+      "tips": [
+        "汉服租赁在巷子里"
+      ]
+    },
+    "source_ref": {
+      "note_title": "老门东逛吃地图🍜本地人都在这几家排队",
+      "note_url": "https://www.xiaohongshu.com/explore/xhs_lmd_001",
+      "image": "xhs_lmd_001_1.jpg"
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-22"
+  },
+  {
+    "chunk_id": "ck_xhs_xwh_001_0",
+    "source_note_id": "xhs_xwh_001",
+    "location": "玄武湖",
+    "type": "POI",
+    "content": "解放门到台城一段看日落，能拍紫峰大厦剪影，环湖绿道散步骑车一圈一个半小时",
+    "tags": [
+      "日落",
+      "拍照机位",
+      "免费"
+    ],
+    "structured_data": {
+      "locations": [
+        "玄武湖",
+        "台城"
+      ],
+      "activities": [
+        "看日落",
+        "散步",
+        "骑车"
+      ],
+      "time_hint": "傍晚",
+      "food": [],
+      "tips": [
+        "解放门进"
+      ]
+    },
+    "source_ref": {
+      "note_title": "玄武湖日落机位分享🌇免费且人少",
+      "note_url": "https://www.xiaohongshu.com/explore/xhs_xwh_001",
+      "image": "xhs_xwh_001_0.jpg"
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-22"
+  },
+  {
+    "chunk_id": "ck_xhs_ztf_001_0",
+    "source_note_id": "xhs_ztf_001",
+    "location": "总统府",
+    "type": "POI",
+    "content": "总统府要公众号提前预约，周一闭馆，西花园精致，建议租讲解器",
+    "tags": [
+      "历史",
+      "预约"
+    ],
+    "structured_data": {
+      "locations": [
+        "总统府"
+      ],
+      "activities": [
+        "参观"
+      ],
+      "time_hint": "白天/周一闭馆",
+      "food": [],
+      "tips": [
+        "提前预约",
+        "周一闭馆",
+        "租讲解器"
+      ]
+    },
+    "source_ref": {
+      "note_title": "总统府参观全记录📖记得提前预约！",
+      "note_url": "https://www.xiaohongshu.com/explore/xhs_ztf_001",
+      "image": "xhs_ztf_001_0.jpg"
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-22"
+  },
+  {
+    "chunk_id": "ck_xhs_ztf_001_1",
+    "source_note_id": "xhs_ztf_001",
+    "location": "总统府",
+    "type": "路线",
+    "content": "逛完总统府走去新街口吃饭很近",
+    "tags": [
+      "路线",
+      "周边"
+    ],
+    "structured_data": {
+      "locations": [
+        "总统府",
+        "新街口"
+      ],
+      "activities": [
+        "步行"
+      ],
+      "time_hint": "",
+      "food": [],
+      "tips": [
+        "步行可达新街口"
+      ]
+    },
+    "source_ref": {
+      "note_title": "总统府参观全记录📖记得提前预约！",
+      "note_url": "https://www.xiaohongshu.com/explore/xhs_ztf_001",
+      "image": "xhs_ztf_001_0.jpg"
+    },
+    "confidence": 0.8,
+    "created_at": "2026-09-22"
+  },
+  {
+    "chunk_id": "ck_xhs_mix_001_0",
+    "source_note_id": "xhs_mix_001",
+    "location": "明孝陵",
+    "type": "路线",
+    "content": "Day1明孝陵+中山陵，钟山风景区联票划算",
+    "tags": [
+      "行程",
+      "钟山"
+    ],
+    "structured_data": {
+      "locations": [
+        "明孝陵",
+        "中山陵"
+      ],
+      "activities": [
+        "一日游"
+      ],
+      "time_hint": "Day1",
+      "food": [],
+      "tips": [
+        "买联票"
+      ]
+    },
+    "source_ref": {
+      "note_title": "南京3天2晚保姆级攻略✨附避坑清单",
+      "note_url": "https://www.xiaohongshu.com/explore/xhs_mix_001",
+      "image": "xhs_mix_001_0.jpg"
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-22"
+  },
+  {
+    "chunk_id": "ck_xhs_mix_001_1",
+    "source_note_id": "xhs_mix_001",
+    "location": "南京",
+    "type": "避坑",
+    "content": "景区门口桂花鸭别买，夫子庙正街的店别进，地铁出行最方便",
+    "tags": [
+      "避坑",
+      "交通"
+    ],
+    "structured_data": {
+      "locations": [
+        "南京"
+      ],
+      "activities": [
+        "交通"
+      ],
+      "time_hint": "",
+      "food": [
+        "桂花鸭"
+      ],
+      "tips": [
+        "景区桂花鸭是坑",
+        "地铁最方便"
+      ]
+    },
+    "source_ref": {
+      "note_title": "南京3天2晚保姆级攻略✨附避坑清单",
+      "note_url": "https://www.xiaohongshu.com/explore/xhs_mix_001",
+      "image": "xhs_mix_001_2.jpg"
+    },
+    "confidence": 0.85,
+    "created_at": "2026-09-22"
+  },
+  {
+    "chunk_id": "ck_xhs_mix_001_text",
+    "source_note_id": "xhs_mix_001",
+    "location": "南京",
+    "type": "路线",
+    "content": "3天2晚行程：Day1钟山风景区，Day2总统府+南博+夫子庙夜游，Day3玄武湖+鸡鸣寺+老门东",
+    "tags": [
+      "行程",
+      "3天2晚"
+    ],
+    "structured_data": {
+      "locations": [
+        "明孝陵",
+        "中山陵",
+        "总统府",
+        "南京博物院",
+        "夫子庙",
+        "玄武湖",
+        "鸡鸣寺",
+        "老门东"
+      ],
+      "activities": [
+        "多日游"
+      ],
+      "time_hint": "3天",
+      "food": [],
+      "tips": [
+        "地铁出行"
+      ]
+    },
+    "source_ref": {
+      "note_title": "南京3天2晚保姆级攻略✨附避坑清单",
+      "note_url": "https://www.xiaohongshu.com/explore/xhs_mix_001",
+      "image": null
+    },
+    "confidence": 0.8,
+    "created_at": "2026-09-22"
+  }
+]

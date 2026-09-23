@@ -1,0 +1,5 @@
+-r requirements.txt
+pytest>=8,<10
+# Optional, heavy: local OCR fallback for handwritten Chinese
+# paddleocr>=2.7
+# paddlepaddle>=2.6

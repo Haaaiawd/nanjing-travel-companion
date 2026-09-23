@@ -1,0 +1,21 @@
+{
+  "schema_version": 2,
+  "project": {
+    "name": "nanjing-travel-companion",
+    "status": "complete",
+    "created_at": "2026-09-22T16:59:12.345Z",
+    "updated_at": "2026-09-22T17:17:38.229Z"
+  },
+  "understanding": {
+    "confirmed": [],
+    "assumptions": [],
+    "unresolved": []
+  },
+  "keeper": {
+    "status": "skipped",
+    "attempts": [],
+    "prepared_digest": "9fa58e5b27173ea53ff3acef9f1fef9091b5a8ca3f8d76fcb198d55276716e32",
+    "prepared_attempt": 1,
+    "skip_reason": "single-agent initial build; no prior agent state to verify and no isolated env for independent keeper review"
+  }
+}
