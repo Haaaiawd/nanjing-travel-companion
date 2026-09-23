@@ -1,407 +1,1299 @@
 [
   {
-    "chunk_id": "ck_xhs_mxl_001_0",
-    "source_note_id": "xhs_mxl_001",
-    "location": "明孝陵",
-    "type": "POI",
-    "content": "石象路秋天银杏全黄像油画，10月中下旬到11月初最佳，早上8点前到避开人流",
+    "chunk_id": "ck_b460_456174_0",
+    "source_note_id": "b460_456174",
+    "location": "栖霞山",
+    "type": "避坑",
+    "content": "👀南京栖霞山枫叶红了吗？ 📸红了！但是有没有全红，现在有红有绿有五彩斑斓～ 📆红枫预计最佳观赏期：11.26～12.10前后 🍁目前栖霞山已经有不少红枫了，整体进度在30-40％左右，可以开始赏枫了，目前人相对还少些（也很多）；但目前很多枫叶还是绿色，如果想要看漫山遍野的红枫，建议等到月底或者下个月初～ 📣今天班班给大家分享南京栖霞山赏枫指南",
+    "tags": [
+      "秋天"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "💥红啦！南京栖霞山免费赏枫指南来啦",
+      "note_url": "https://b.460.net.cn/a/456174.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_456174_1",
+    "source_note_id": "b460_456174",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "🎫门票：红枫节期间80元 💚半价及免票人群等参考图片说明 🆓早上7点前免费，不用检票；周六日高峰期，6点可能就堵车，请提前规划行程～ 🏠检票出入口： 西门：直奔栖霞寺，附近小景点密集（早上堵车更严重） 南门：附近小景点较少，但距马路近，人少检票更快 🚗交通指南： 🚕自驾：导航栖霞山景区西门/南门",
     "tags": [
       "秋天",
+      "清晨",
+      "交通",
+      "门票"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "💥红啦！南京栖霞山免费赏枫指南来啦",
+      "note_url": "https://b.460.net.cn/a/456174.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_456174_2",
+    "source_note_id": "b460_456174",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "🅿️停车场：四桥下方和五福家园转盘处、以及古镇停车场；停车费小车4元/小时 🚇地铁：6号线栖霞山站（💔目前还未开通），周边地铁均需转公交或打车 👣2号线经天路、4号线仙林湖、7号线仙新路，下车后打车十几二十元 🚌公交车：206路（市区过来可选），直达栖霞山西门 🏨住宿指南：",
+    "tags": [
+      "交通"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "💥红啦！南京栖霞山免费赏枫指南来啦",
+      "note_url": "https://b.460.net.cn/a/456174.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_456174_3",
+    "source_note_id": "b460_456174",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "🏠栖霞山地处相对偏僻，一般不建议住在这里，价格高且周边配套比较少；可以正常住市区，方便多景点综合安排 🎁想住离栖霞山近一点可选：金尧金地广场、金鹰湖滨天地、仙林万达茂等区域，打车到栖霞山十几二十元，更有性价比 ⏰建议游玩时间：半天起，可以安排一日游 💥一定要选择天气好的时间，阳光明媚拍照更出片～ 👣推荐游玩路线：西门进西门出",
+    "tags": [
+      "拍照"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "💥红啦！南京栖霞山免费赏枫指南来啦",
+      "note_url": "https://b.460.net.cn/a/456174.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_456174_4",
+    "source_note_id": "b460_456174",
+    "location": "千佛岩",
+    "type": "路线",
+    "content": "西门→明镜湖→栖霞寺→千佛岩→舍利塔→桃花坞→桃花湖→虎山瀑布→红叶谷→始皇临江处→天街→太虚亭→了凡问道→天开岩→桃花湖→西门 ⛰️登山指南： 观光车：单程10/20元，高峰期周末停运 电动车：120元/小时起，轻松骑行，可随时停靠 徒步登山：有健身步道、石阶、沥青大马路等可选 🍝美食指南： 💚建议自带水果、零食和水等，爬山随时补充体力，性价比也高",
+    "tags": [
+      "徒步"
+    ],
+    "structured_data": {
+      "locations": [
+        "千佛岩",
+        "舍利塔",
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "💥红啦！南京栖霞山免费赏枫指南来啦",
+      "note_url": "https://b.460.net.cn/a/456174.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_456174_5",
+    "source_note_id": "b460_456174",
+    "location": "栖霞山",
+    "type": "美食",
+    "content": "💛景区外古镇有各类美食小吃；景区内山脚下、美食广场、天街等也有多处美食点，有各类小吃；栖霞寺旁也可以去吃素面～ 📣更多南京赏秋指南，可以查看 @南京刘班班～ 其他内容～ #秋日到站计划 #收集全世界的秋天 #旅游编辑部 #南京旅游 #南京旅游攻略 #栖霞山 #栖霞山枫叶 #栖霞山的枫叶",
+    "tags": [
+      "秋天"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "💥红啦！南京栖霞山免费赏枫指南来啦",
+      "note_url": "https://b.460.net.cn/a/456174.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_456218_6",
+    "source_note_id": "b460_456218",
+    "location": "栖霞山",
+    "type": "POI",
+    "content": "这是去年12月底拍的，枫叶正红。 走在布满枫叶的山道上，心情都被狠狠的洗涤干净。 很喜欢栖霞山满是枫叶的时节， 当然还有已经泛黄的银杏点缀， 分享给大家瞧瞧。 希望今年的栖霞山也跟以往一样美丽。 #南京栖霞山 #栖霞山枫叶 #栖霞山 #枫叶 #南京旅游 #留住秋天的一百种方式 #秋天的风景",
+    "tags": [
+      "秋天"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "栖霞山枫叶大概要12月中或底才好看",
+      "note_url": "https://b.460.net.cn/a/456218.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_456742_7",
+    "source_note_id": "b460_456742",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "南京栖霞山的枫叶正染上醉人的红色🍁 这份赏枫攻略能帮你轻松规划行程 邂逅金陵最浓的秋意 🗓 最佳观赏期 · 11月中旬至12月上旬 · 11月23日现状是只有一小部分红枫，估计一周后能红遍，到时一定很美，很壮观 📍 精华赏枫徒步路线 & 打卡点 1. 懒人休闲（3km,1.5-2小时） 路线：西门→哼哈殿→彩虹明镜→虎山栈道→读枫阁→桃花湖→西门",
+    "tags": [
+      "秋天",
+      "拍照",
+      "徒步"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山",
+        "桃花湖"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "2025.11.23｜栖霞山红枫现状🍁含游玩攻略！",
+      "note_url": "https://b.460.net.cn/a/456742.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_456742_8",
+    "source_note_id": "b460_456742",
+    "location": "千佛岩",
+    "type": "路线",
+    "content": "2.经典赏枫（5km,3-4小时） 路线：西门→明镜湖→栖霞寺→舍利塔→千佛岩→红叶谷→枫林湖→始皇临江处→西门 3.深度（7km,4-5小时） 路线：南门→集云亭→始皇临江处→红叶谷→虎山→德云庵→桃花涧→栖霞寺→西门 4. 体力挑战（10km,5-6小时） 路线：南门→半馆→始皇临江处→红叶谷→蝴蝶谷→凌云桟道→太虚亭→天开岩→栖霞寺→千佛斋",
+    "tags": [
+      "攻略"
+    ],
+    "structured_data": {
+      "locations": [
+        "千佛岩",
+        "舍利塔",
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "2025.11.23｜栖霞山红枫现状🍁含游玩攻略！",
+      "note_url": "https://b.460.net.cn/a/456742.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_456742_9",
+    "source_note_id": "b460_456742",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "打卡点推荐 1.明镜湖：晨雾＋湖光倒影，如诗如画 2.栖霞寺：红墙青瓦＋银杏红枫，禅意足 3.桃花湖：亭台红叶倒影，随手一拍即大片 4.始皇临江处：俯瞰长江，气势恢宏 5.枫林湖：湖、山、枫三位一体，色彩饱和 6.干佛岩：六朝石刻与枫叶相映，历史感拉满 🚗 交通指南",
+    "tags": [
+      "秋天",
+      "拍照",
+      "交通"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山",
+        "始皇临江处",
+        "桃花湖"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "2025.11.23｜栖霞山红枫现状🍁含游玩攻略！",
+      "note_url": "https://b.460.net.cn/a/456742.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_456742_10",
+    "source_note_id": "b460_456742",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "1. 公共交通：推荐乘坐地铁2号线至羊山公园站，或地铁3号线转栖霞专线，之后换乘公交前往。多条公交线路可直达景区。 2. 自驾：导航至栖霞山风景区西门（主景区入口）或南门停车场。景区新增了停车场，总计有超过5000个车位，高峰期基本能满足停车需求。 🍁 游玩小贴士 1. 门票：淡季40元/人，旺季80元/人。建议提前在官方预约购票，刷身份证即可入园。",
+    "tags": [
+      "交通",
+      "门票"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "2025.11.23｜栖霞山红枫现状🍁含游玩攻略！",
+      "note_url": "https://b.460.net.cn/a/456742.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_456742_11",
+    "source_note_id": "b460_456742",
+    "location": "栖霞山",
+    "type": "避坑",
+    "content": "2. 免费游玩⚠️：早7:00之前入园（早起的鸟儿有虫吃哦🐛） 3. 穿搭建议：穿着浅色系衣服或汉服，在红枫背景下拍照会更出片。一定要穿防滑舒适的鞋子，因为山林路面可能有落叶湿滑。 4. 特色体验：别错过山下的栖霞古镇，那里有梅花糕、糖炒栗子、鸭血粉丝汤等南京特色小吃，可以补充体力。景区内还有“山边边市集”，能买到特色的红叶手工艺品和文创产品。",
+    "tags": [
+      "秋天",
+      "拍照",
+      "清晨",
+      "门票"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "2025.11.23｜栖霞山红枫现状🍁含游玩攻略！",
+      "note_url": "https://b.460.net.cn/a/456742.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_456742_12",
+    "source_note_id": "b460_456742",
+    "location": "栖霞山",
+    "type": "避坑",
+    "content": "秋色正好，快带上这份攻略，去栖霞山捕捉限定版的浪漫吧！ ✨ #浪漫生活的记录者 #栖霞山的枫叶 #又到登山赏红叶的好时节 #赏秋好去处 #秋天枫叶拍照 #红枫 #枫叶 #周末去哪儿 #南京 #栖霞山 @南京栖霞山风景区",
+    "tags": [
+      "秋天",
+      "拍照",
+      "徒步"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "2025.11.23｜栖霞山红枫现状🍁含游玩攻略！",
+      "note_url": "https://b.460.net.cn/a/456742.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457084_13",
+    "source_note_id": "b460_457084",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "总要来一趟秋天的南京吧🍂 梧桐叶落满城金，燕雀湖杉林染红，灵谷寺银杏映古刹 3️⃣天时间，把金陵秋意装进记忆里～ . 🗺️ 3日游路线 DAY1：燕雀湖 → 明孝陵→ 美龄宫 → 梧桐大道 → 南京音乐台 → 灵谷寺 DAY2：鸡鸣寺古城墙 → 毗卢寺 → 颐和路→ 西桥 → 朝天宫 → 玄武湖爱神广场",
+    "tags": [
+      "秋天"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "南京秋日封神‼️1️⃣8️⃣个出片机位朋友圈赞爆",
+      "note_url": "https://b.460.net.cn/a/457084.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457084_14",
+    "source_note_id": "b460_457084",
+    "location": "达摩古洞",
+    "type": "路线",
+    "content": "DAY3：达摩古洞 → 南京大字墙→ 老门东→ 晨光1865创意产业园 → 南京大报恩寺 . 📸️ 拍照机位（按图片顺序） 1️⃣ 明孝陵 11月中下旬，金灿灿的银杏+朱红大门，阳光洒下敲有秋日氛围感 2️⃣ 燕雀湖 11月底-12月初，清晨落羽杉水雾弥漫像油画，还能偶遇黑天鹅🦢 3️⃣ 南京大字墙 悦动新西门18栋，用慢门拍出行走虚影，氛围拿捏",
+    "tags": [
       "拍照",
       "清晨"
     ],
     "structured_data": {
       "locations": [
-        "明孝陵",
-        "石象路"
+        "达摩古洞"
       ],
-      "activities": [
-        "拍照",
-        "散步"
-      ],
-      "time_hint": "10月中下旬/8点前",
-      "food": [],
-      "tips": [
-        "8点前到避开人流"
-      ]
-    },
-    "source_ref": {
-      "note_title": "明孝陵石象路秋天真的封神了🍂",
-      "note_url": "https://www.xiaohongshu.com/explore/xhs_mxl_001",
-      "image": "xhs_mxl_001_0.jpg"
-    },
-    "confidence": 0.9,
-    "created_at": "2026-09-22"
-  },
-  {
-    "chunk_id": "ck_xhs_mxl_001_1",
-    "source_note_id": "xhs_mxl_001",
-    "location": "明孝陵",
-    "type": "路线",
-    "content": "神道走完顺路去美龄宫，钟山风景区几个点可以串起来逛",
-    "tags": [
-      "路线",
-      "钟山"
-    ],
-    "structured_data": {
-      "locations": [
-        "明孝陵",
-        "美龄宫"
-      ],
-      "activities": [
-        "步行游览"
-      ],
-      "time_hint": "半天",
-      "food": [],
-      "tips": [
-        "联票更划算"
-      ]
-    },
-    "source_ref": {
-      "note_title": "明孝陵石象路秋天真的封神了🍂",
-      "note_url": "https://www.xiaohongshu.com/explore/xhs_mxl_001",
-      "image": "xhs_mxl_001_1.jpg"
-    },
-    "confidence": 0.9,
-    "created_at": "2026-09-22"
-  },
-  {
-    "chunk_id": "ck_xhs_fzm_001_0",
-    "source_note_id": "xhs_fzm_001",
-    "location": "夫子庙",
-    "type": "POI",
-    "content": "夫子庙要晚上去，秦淮河画舫80块值回票价，两岸灯亮才是金陵",
-    "tags": [
-      "夜景",
-      "秦淮河",
-      "画舫"
-    ],
-    "structured_data": {
-      "locations": [
-        "夫子庙",
-        "秦淮河"
-      ],
-      "activities": [
-        "夜游",
-        "画舫"
-      ],
-      "time_hint": "晚上",
-      "food": [],
-      "tips": [
-        "画舫80元"
-      ]
-    },
-    "source_ref": {
-      "note_title": "夫子庙夜游保姆级攻略🏮别再白天去了",
-      "note_url": "https://www.xiaohongshu.com/explore/xhs_fzm_001",
-      "image": "xhs_fzm_001_0.jpg"
-    },
-    "confidence": 0.9,
-    "created_at": "2026-09-22"
-  },
-  {
-    "chunk_id": "ck_xhs_fzm_001_1",
-    "source_note_id": "xhs_fzm_001",
-    "location": "夫子庙",
-    "type": "避坑",
-    "content": "夫子庙商业化重，正街小吃别买，往旁边小巷钻才靠谱",
-    "tags": [
-      "避坑",
-      "商业化"
-    ],
-    "structured_data": {
-      "locations": [
-        "夫子庙"
-      ],
-      "activities": [
-        "逛街"
-      ],
+      "activities": [],
       "time_hint": "",
-      "food": [
-        "正街小吃"
-      ],
-      "tips": [
-        "正街小吃贵且不正宗"
-      ]
+      "food": [],
+      "tips": []
     },
     "source_ref": {
-      "note_title": "夫子庙夜游保姆级攻略🏮别再白天去了",
-      "note_url": "https://www.xiaohongshu.com/explore/xhs_fzm_001",
-      "image": "xhs_fzm_001_0.jpg"
+      "note_title": "南京秋日封神‼️1️⃣8️⃣个出片机位朋友圈赞爆",
+      "note_url": "https://b.460.net.cn/a/457084.html",
+      "image": ""
     },
-    "confidence": 0.85,
-    "created_at": "2026-09-22"
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
   },
   {
-    "chunk_id": "ck_xhs_lmd_001_0",
-    "source_note_id": "xhs_lmd_001",
-    "location": "老门东",
+    "chunk_id": "ck_b460_457084_15",
+    "source_note_id": "b460_457084",
+    "location": "栖霞山",
+    "type": "避坑",
+    "content": "4️⃣ 梧桐大道 11月中-12月中，6:30-7:30可蹲丁达尔光，温柔感拉满 5️⃣ 鸡鸣寺古城墙 站在城墙上拍鸡鸣寺和紫峰大厦古今同框的秋色，南京独有 6️⃣ 朝天宫 红墙黄瓦的“南京小故宫”，穿新中式拍摄，很出片！ 7️⃣ 南京音乐台 秋日光影衬环形建筑，鸽子🕊️盘旋抓拍动态画面，很治愈 8️⃣ 南京大报恩寺",
+    "tags": [
+      "秋天",
+      "拍照"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "南京秋日封神‼️1️⃣8️⃣个出片机位朋友圈赞爆",
+      "note_url": "https://b.460.net.cn/a/457084.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457084_16",
+    "source_note_id": "b460_457084",
+    "location": "达摩古洞",
+    "type": "POI",
+    "content": "把琉璃塔框进书📖里，馆内拍千年对望倒影，傍晚亮灯更美 9️⃣ 毗卢寺 市区禅意秘境，红墙朱窗映银杏，静谧小众人还少 🔟 达摩古洞 巨物古建很震撼，就像闯入了黑神话秘境 1️⃣1️⃣ 美龄宫 航拍梧桐环绕成\\\"项链\\\"，复古建筑配秋景，太浪漫了 1️⃣2️⃣ 老门东金陵大字墙 古巷的热门机位，\\\"金陵\\\"二字很有南京特色 1️⃣3️⃣ 西桥",
+    "tags": [
+      "攻略"
+    ],
+    "structured_data": {
+      "locations": [
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "南京秋日封神‼️1️⃣8️⃣个出片机位朋友圈赞爆",
+      "note_url": "https://b.460.net.cn/a/457084.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457084_17",
+    "source_note_id": "b460_457084",
+    "location": "栖霞山",
     "type": "美食",
-    "content": "蒋有记锅贴、小郑酥烧饼、陆氏梅花糕都要排队但值得",
+    "content": "citywalk网红机位，街道尽头紫峰大厦现代与烟火气碰撞 1️⃣4️⃣ 晨光1865创意产业园 前身金陵制造局，佛头和工业风搭配，高级感满分 1️⃣5️⃣ 颐和路先锋书店 民国街道梧桐遮天，抓拍车流驶过，秒变电影感 1️⃣6️⃣ 颐和路歪脖子树 歪枝映黄墙，站马路对面拍，文艺胶片自带故事感 1️⃣7️⃣ 灵谷寺",
     "tags": [
-      "美食",
-      "小吃",
-      "排队"
+      "攻略"
     ],
     "structured_data": {
       "locations": [
-        "老门东"
+        "栖霞山"
       ],
-      "activities": [
-        "逛吃"
-      ],
-      "time_hint": "下午",
-      "food": [
-        "蒋有记锅贴",
-        "小郑酥烧饼",
-        "陆氏梅花糕"
-      ],
-      "tips": [
-        "饭点排队久"
-      ]
-    },
-    "source_ref": {
-      "note_title": "老门东逛吃地图🍜本地人都在这几家排队",
-      "note_url": "https://www.xiaohongshu.com/explore/xhs_lmd_001",
-      "image": "xhs_lmd_001_0.jpg"
-    },
-    "confidence": 0.9,
-    "created_at": "2026-09-22"
-  },
-  {
-    "chunk_id": "ck_xhs_lmd_001_1",
-    "source_note_id": "xhs_lmd_001",
-    "location": "老门东",
-    "type": "POI",
-    "content": "巷子里汉服租赁拍照出片，下午三四点光线最好",
-    "tags": [
-      "拍照",
-      "汉服"
-    ],
-    "structured_data": {
-      "locations": [
-        "老门东"
-      ],
-      "activities": [
-        "拍照",
-        "汉服体验"
-      ],
-      "time_hint": "下午3-4点",
-      "food": [],
-      "tips": [
-        "汉服租赁在巷子里"
-      ]
-    },
-    "source_ref": {
-      "note_title": "老门东逛吃地图🍜本地人都在这几家排队",
-      "note_url": "https://www.xiaohongshu.com/explore/xhs_lmd_001",
-      "image": "xhs_lmd_001_1.jpg"
-    },
-    "confidence": 0.9,
-    "created_at": "2026-09-22"
-  },
-  {
-    "chunk_id": "ck_xhs_xwh_001_0",
-    "source_note_id": "xhs_xwh_001",
-    "location": "玄武湖",
-    "type": "POI",
-    "content": "解放门到台城一段看日落，能拍紫峰大厦剪影，环湖绿道散步骑车一圈一个半小时",
-    "tags": [
-      "日落",
-      "拍照机位",
-      "免费"
-    ],
-    "structured_data": {
-      "locations": [
-        "玄武湖",
-        "台城"
-      ],
-      "activities": [
-        "看日落",
-        "散步",
-        "骑车"
-      ],
-      "time_hint": "傍晚",
-      "food": [],
-      "tips": [
-        "解放门进"
-      ]
-    },
-    "source_ref": {
-      "note_title": "玄武湖日落机位分享🌇免费且人少",
-      "note_url": "https://www.xiaohongshu.com/explore/xhs_xwh_001",
-      "image": "xhs_xwh_001_0.jpg"
-    },
-    "confidence": 0.9,
-    "created_at": "2026-09-22"
-  },
-  {
-    "chunk_id": "ck_xhs_ztf_001_0",
-    "source_note_id": "xhs_ztf_001",
-    "location": "总统府",
-    "type": "POI",
-    "content": "总统府要公众号提前预约，周一闭馆，西花园精致，建议租讲解器",
-    "tags": [
-      "历史",
-      "预约"
-    ],
-    "structured_data": {
-      "locations": [
-        "总统府"
-      ],
-      "activities": [
-        "参观"
-      ],
-      "time_hint": "白天/周一闭馆",
-      "food": [],
-      "tips": [
-        "提前预约",
-        "周一闭馆",
-        "租讲解器"
-      ]
-    },
-    "source_ref": {
-      "note_title": "总统府参观全记录📖记得提前预约！",
-      "note_url": "https://www.xiaohongshu.com/explore/xhs_ztf_001",
-      "image": "xhs_ztf_001_0.jpg"
-    },
-    "confidence": 0.9,
-    "created_at": "2026-09-22"
-  },
-  {
-    "chunk_id": "ck_xhs_ztf_001_1",
-    "source_note_id": "xhs_ztf_001",
-    "location": "总统府",
-    "type": "路线",
-    "content": "逛完总统府走去新街口吃饭很近",
-    "tags": [
-      "路线",
-      "周边"
-    ],
-    "structured_data": {
-      "locations": [
-        "总统府",
-        "新街口"
-      ],
-      "activities": [
-        "步行"
-      ],
+      "activities": [],
       "time_hint": "",
       "food": [],
-      "tips": [
-        "步行可达新街口"
-      ]
+      "tips": []
     },
     "source_ref": {
-      "note_title": "总统府参观全记录📖记得提前预约！",
-      "note_url": "https://www.xiaohongshu.com/explore/xhs_ztf_001",
-      "image": "xhs_ztf_001_0.jpg"
+      "note_title": "南京秋日封神‼️1️⃣8️⃣个出片机位朋友圈赞爆",
+      "note_url": "https://b.460.net.cn/a/457084.html",
+      "image": ""
     },
-    "confidence": 0.8,
-    "created_at": "2026-09-22"
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
   },
   {
-    "chunk_id": "ck_xhs_mix_001_0",
-    "source_note_id": "xhs_mix_001",
-    "location": "明孝陵",
+    "chunk_id": "ck_b460_457084_18",
+    "source_note_id": "b460_457084",
+    "location": "栖霞山",
     "type": "路线",
-    "content": "Day1明孝陵+中山陵，钟山风景区联票划算",
+    "content": "银杏金黄映无梁殿古建，禅意静谧人还少，易出古风片 1️⃣8️⃣ 玄武湖爱神广场 南京版lalaland，夕阳🌇漫染湖面或蓝调时刻，浪漫收尾 #南京旅游 #南京旅行 #南京打卡 #秋日到站计划 #秋天来了 #治愈系风景 #小城之秋 #收集全世界的秋天 #南京秋天 #我爱的城市自带BGM",
     "tags": [
-      "行程",
-      "钟山"
+      "秋天",
+      "拍照"
     ],
     "structured_data": {
       "locations": [
-        "明孝陵",
-        "中山陵"
+        "栖霞山"
       ],
-      "activities": [
-        "一日游"
-      ],
-      "time_hint": "Day1",
+      "activities": [],
+      "time_hint": "",
       "food": [],
-      "tips": [
-        "买联票"
-      ]
+      "tips": []
     },
     "source_ref": {
-      "note_title": "南京3天2晚保姆级攻略✨附避坑清单",
-      "note_url": "https://www.xiaohongshu.com/explore/xhs_mix_001",
-      "image": "xhs_mix_001_0.jpg"
+      "note_title": "南京秋日封神‼️1️⃣8️⃣个出片机位朋友圈赞爆",
+      "note_url": "https://b.460.net.cn/a/457084.html",
+      "image": ""
     },
     "confidence": 0.9,
-    "created_at": "2026-09-22"
+    "created_at": "2026-09-23"
   },
   {
-    "chunk_id": "ck_xhs_mix_001_1",
-    "source_note_id": "xhs_mix_001",
-    "location": "南京",
-    "type": "避坑",
-    "content": "景区门口桂花鸭别买，夫子庙正街的店别进，地铁出行最方便",
+    "chunk_id": "ck_b460_457085_19",
+    "source_note_id": "b460_457085",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "来栖霞山玩不做攻略真的会多走很多路啊！累的不行还没看到好地风景😫所以连夜给大家整理了这份超详细的栖霞山攻略包含景区的很多信息，希望别再有人和我踩一样的🕳️了！ #栖霞山的枫叶 #游玩攻略 #南京旅游 #南京吃喝玩乐 #南京美食 #南京打卡 #南京旅行 #南京攻略 #旅游万粉扶持计划",
     "tags": [
-      "避坑",
+      "秋天",
+      "拍照"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "南京｜栖霞山保姆级攻略（更新版",
+      "note_url": "https://b.460.net.cn/a/457085.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457094_20",
+    "source_note_id": "b460_457094",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "12.6实拍｜南京栖霞山赏枫进行时 栖霞山是中国四大赏枫胜地之一哦！ ‼️早上七点前免费🆓哦！不过一定要提前一点，人真的很多。西门进提前一小时到，南门进提前半小时到比较保险。 ✔️赏枫坠佳观赏期： 11月下旬至12月初，全山枫树基本红透，红叶谷、霜红苑层林尽染。 ✔️门票： 红枫季成人票80r/人，学生票40r/人，1.4m及以下儿童免票。 ✔️开放时间：",
+    "tags": [
+      "秋天",
+      "清晨",
+      "门票"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山",
+        "红叶谷"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "❤️12.6实拍｜南京栖霞山赏枫进行时",
+      "note_url": "https://b.460.net.cn/a/457094.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457094_21",
+    "source_note_id": "b460_457094",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "7：00-17：00，16：30停止售票。 ✔️关于交通: 乘坐地铁1号线（南京站）、3号线（新庄站）、4号线（聚宝山站）转206路公交车。 自驾：导航至“栖霞山景区西门停车场”，景区有P1、P2、P3等多个停车场，红枫季高峰期建议尽早到达。 ✔️赏枫路线 : 精华打卡线（1-2h）：",
+    "tags": [
+      "秋天",
+      "拍照",
+      "清晨",
       "交通"
     ],
     "structured_data": {
       "locations": [
-        "南京"
+        "栖霞山"
       ],
-      "activities": [
-        "交通"
-      ],
+      "activities": [],
       "time_hint": "",
-      "food": [
-        "桂花鸭"
-      ],
-      "tips": [
-        "景区桂花鸭是坑",
-        "地铁最方便"
-      ]
+      "food": [],
+      "tips": []
     },
     "source_ref": {
-      "note_title": "南京3天2晚保姆级攻略✨附避坑清单",
-      "note_url": "https://www.xiaohongshu.com/explore/xhs_mix_001",
-      "image": "xhs_mix_001_2.jpg"
+      "note_title": "❤️12.6实拍｜南京栖霞山赏枫进行时",
+      "note_url": "https://b.460.net.cn/a/457094.html",
+      "image": ""
     },
-    "confidence": 0.85,
-    "created_at": "2026-09-22"
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
   },
   {
-    "chunk_id": "ck_xhs_mix_001_text",
-    "source_note_id": "xhs_mix_001",
-    "location": "南京",
+    "chunk_id": "ck_b460_457094_22",
+    "source_note_id": "b460_457094",
+    "location": "栖霞山",
     "type": "路线",
-    "content": "3天2晚行程：Day1钟山风景区，Day2总统府+南博+夫子庙夜游，Day3玄武湖+鸡鸣寺+老门东",
+    "content": "西门入➠彩虹明镜➠栖霞古寺➠桃花湖➠红叶谷➠枫林湖➠始皇临江处➠天街➠西门出 这条路线适合带老人、孩子哦，全程可租借电瓶车。 ❤️bi打卡点: 1⃣️红叶谷：有大量色彩艳丽的鸡爪槭，是栖霞山红叶坠密集的区域。 2⃣️桃花湖：周边有高大的枫香树，还有一株巨大的“枫王”，枫香树倒映湖面，景色优美。",
     "tags": [
-      "行程",
-      "3天2晚"
+      "拍照"
     ],
     "structured_data": {
       "locations": [
-        "明孝陵",
-        "中山陵",
-        "总统府",
-        "南京博物院",
-        "夫子庙",
-        "玄武湖",
-        "鸡鸣寺",
-        "老门东"
+        "栖霞山",
+        "始皇临江处",
+        "桃花湖"
       ],
-      "activities": [
-        "多日游"
-      ],
-      "time_hint": "3天",
+      "activities": [],
+      "time_hint": "",
       "food": [],
-      "tips": [
-        "地铁出行"
-      ]
+      "tips": []
     },
     "source_ref": {
-      "note_title": "南京3天2晚保姆级攻略✨附避坑清单",
-      "note_url": "https://www.xiaohongshu.com/explore/xhs_mix_001",
-      "image": null
+      "note_title": "❤️12.6实拍｜南京栖霞山赏枫进行时",
+      "note_url": "https://b.460.net.cn/a/457094.html",
+      "image": ""
     },
-    "confidence": 0.8,
-    "created_at": "2026-09-22"
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457094_23",
+    "source_note_id": "b460_457094",
+    "location": "栖霞山",
+    "type": "避坑",
+    "content": "3⃣️太虚亭：环亭有古枫环绕，入秋叶色变成暗红，与古亭相映成趣。 4⃣️始皇临江处：可在此登高远眺长江，俯瞰漫山红叶，感受“层林尽染”的壮丽景观。 #栖霞山的枫叶 #南京旅游 #又到登山赏红叶的好时节 #一起赏秋景 #红叶 #秋天落叶景色 #枫叶林拍照 #秋天赏枫叶 #南京的秋天 #交换一张有光的红叶🍁",
+    "tags": [
+      "秋天",
+      "拍照",
+      "徒步"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山",
+        "始皇临江处"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "❤️12.6实拍｜南京栖霞山赏枫进行时",
+      "note_url": "https://b.460.net.cn/a/457094.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457102_24",
+    "source_note_id": "b460_457102",
+    "location": "栖霞山",
+    "type": "POI",
+    "content": "🍁南京栖霞山枫叶红透啦～ 💥周末栖霞山来了得有一亿人，挤爆了！ 📆红枫观赏期：～12月中旬 🗺️红枫现状说明：目前栖霞山已经进入了最佳观赏期，红枫已经占据了主导，越往后红的越厉害。今年的红枫预计还可以持续半个月，到12月中旬前后；但是秋色宜早不宜迟，枫叶会边红边落，枝头上也会有不少枯叶～",
+    "tags": [
+      "秋天",
+      "清晨"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "💥南京栖霞山周末来了一亿人！挤爆了～",
+      "note_url": "https://b.460.net.cn/a/457102.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457102_25",
+    "source_note_id": "b460_457102",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "⏰赏枫时间建议：推荐工作日，人相对少些，体验感会稍微好些；周末真的从早到晚全是人 🎫赏枫免费指南：目前门票80元，但是早上7点前可以免费进入。如果想要赶早起免费，建议按6点半前规划行程。如果遇到堵车，及时提前下车徒步前往或者优选南门入园，相对快一些～ #旅游编辑部 #秋日到站计划 #收集全世界的秋天 #南京旅游 #南京旅游攻略 #栖霞山 #南京栖霞山",
+    "tags": [
+      "秋天",
+      "徒步",
+      "清晨",
+      "门票"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "💥南京栖霞山周末来了一亿人！挤爆了～",
+      "note_url": "https://b.460.net.cn/a/457102.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457105_26",
+    "source_note_id": "b460_457105",
+    "location": "栖霞山",
+    "type": "POI",
+    "content": "#栖霞山 #枫叶 #南京旅游攻略 #栖霞山的枫叶 #秋天赏枫叶 #留住秋天的一百种方式 #又到登山赏红叶的好时节 #公园赏秋情报站 #秋天落叶景色",
+    "tags": [
+      "秋天",
+      "徒步"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "12.1栖霞山枫叶实拍❗美晕",
+      "note_url": "https://b.460.net.cn/a/457105.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457110_27",
+    "source_note_id": "b460_457110",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "🏃真的不能再等了，栖霞山赏枫赶紧去！！ 🥶这周南京降温了，枫叶肯定红得更彻底了，但是那个北风一吹，叶子一落，马上大片大片红的浓度就要下去了，赶紧冲！！ 🍁拍不完，根本拍不完，各种颜色的枫叶一次性打卡齐全✌️ 🚗5:00起床，5:50从新街口出发，一路畅通无阻，6:15已经到达南门",
+    "tags": [
+      "秋天",
+      "拍照"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "12.02南京栖霞山实况live（免票版）",
+      "note_url": "https://b.460.net.cn/a/457110.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457110_28",
+    "source_note_id": "b460_457110",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "滴滴司机说昨天还堵了一会儿的。可能因为周二是阴天，所以游客少了不少，但是进去之后还是游人如织 [扶额R] ✅强烈给大家安利南门，从路边下车，走半分钟就是检票口，不像西门还要走老远才能到检票口！很容易赶不上7点之前免票时间！！然后中午走到西门附近，正好可以吃碗素斋面",
+    "tags": [
+      "攻略"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "12.02南京栖霞山实况live（免票版）",
+      "note_url": "https://b.460.net.cn/a/457110.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457110_29",
+    "source_note_id": "b460_457110",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "⏰一路登山基本上不费什么力气，一圈走下来8公里左右，非常悠闲的游玩时间大概在四个小时左右，如果不拍照的话，那就更快了 #南京 #南京户外徒步 #公园赏秋情报站 #留住秋天的一百种方式 #栖霞山 #枫叶 #又是一年红叶季 #栖霞山的枫叶 #南京旅游",
+    "tags": [
+      "秋天",
+      "拍照",
+      "徒步"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "12.02南京栖霞山实况live（免票版）",
+      "note_url": "https://b.460.net.cn/a/457110.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457115_30",
+    "source_note_id": "b460_457115",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "🍁今天的南京栖霞山，已是最美时刻 2025年11月30日的栖霞山枫叶已经变色了70% 从小路进入到景区 直接被这里的秋色美到走不动路 满山的枫树层林尽染 红、黄、绿三色交织 像上帝打翻的调色盘🎨 📍推荐路线：（轨迹已发在评论区，你懂得 ） 南门→红枫林→太虚亭→始皇临江处→红叶谷→桃花坞→栖霞寺→西门（七点前免票） 寺庙前的千年银杏和枫叶相映成趣",
+    "tags": [
+      "秋天"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山",
+        "始皇临江处",
+        "红叶谷"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "南京栖霞山最美时刻",
+      "note_url": "https://b.460.net.cn/a/457115.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_457115_31",
+    "source_note_id": "b460_457115",
+    "location": "栖霞山",
+    "type": "路线",
+    "content": "朱红色院墙配上探进来的枫枝 随手一拍都是古风大片📸 还看到了蓝色孔雀，好美啊…… ✨必打卡点： 1️⃣ 栖霞寺放生池 枫叶倒映在水中 虚实交错美得不真实 2️⃣ 红叶谷 这里的枫叶最密集 仿佛走进火焰秘境 3️⃣ 桃花扇亭 俯瞰长江的绝佳位置 江枫一色绝美 #南京 #合肥周边游 #南京周边游 #栖霞山 #南京旅游 #栖霞 #又是一年红叶季 #枫叶🍁",
+    "tags": [
+      "秋天",
+      "拍照"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山",
+        "红叶谷"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "南京栖霞山最美时刻",
+      "note_url": "https://b.460.net.cn/a/457115.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_501691_32",
+    "source_note_id": "b460_501691",
+    "location": "舍利塔",
+    "type": "路线",
+    "content": "南京栖霞山栖霞古寺舍利塔和千佛窟 南京栖霞山栖霞古寺舍利塔和千佛窟， 图一 ‌ 图二 ‌舍利塔， 图三 ‌三圣殿：无量寿佛，观音菩萨和大势至菩萨 图七 ‌佛窟顶部居然有飞天壁画 #栖霞古寺舍利塔 #南京栖霞山旅游 #古塔建筑之美 #千佛窟探秘 #历史遗迹打卡 #飞天",
+    "tags": [
+      "拍照"
+    ],
+    "structured_data": {
+      "locations": [
+        "舍利塔",
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "南京栖霞山栖霞古寺舍利塔和千佛窟",
+      "note_url": "https://b.460.net.cn/a/501691.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_582169_33",
+    "source_note_id": "b460_582169",
+    "location": "达摩古洞",
+    "type": "POI",
+    "content": "🌿南京半日｜禅意石窟×红色丰碑，长江岸的双重浪漫 一边是千年禅意，一边是时代荣光，南京城北这条长江岸线，藏着最动人的历史与风光✨ 📍达摩古洞·南京小莫高窟 幕燕滨江的悬崖秘境，101尊达摩像嵌于岩壁，神态各异，面朝长江，氛围感拉满。 走进一苇渡光影馆，24米巨幅光影达摩破壁而来，3D光影演绎“一苇渡江”的传奇，视觉震撼到失语。",
+    "tags": [
+      "攻略"
+    ],
+    "structured_data": {
+      "locations": [
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "南京半日|禅意石窟*红色丰碑,长江岸的双重浪漫",
+      "note_url": "https://b.460.net.cn/a/582169.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_582169_34",
+    "source_note_id": "b460_582169",
+    "location": "栖霞山",
+    "type": "POI",
+    "content": "穿素色衣裙，在石窟栈道拍剪影，随手都是武侠感大片📸 📍燕子矶·万里长江第一矶 登临矶头，看长江拐弯，江天一色，难怪是“金陵四十八景”之一。 有乾隆御碑、李白醉酒的酒樽石，还有陶行知“想一想，死不得”的劝诫碑，一步一史。 📍长江大桥桥头堡·永不褪色的红色丰碑 从燕子矶沿江东望，三面红旗巍然矗立，70米高堡是60年代自力更生的时代印记。",
+    "tags": [
+      "攻略"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "南京半日|禅意石窟*红色丰碑,长江岸的双重浪漫",
+      "note_url": "https://b.460.net.cn/a/582169.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_582169_35",
+    "source_note_id": "b460_582169",
+    "location": "达摩古洞",
+    "type": "路线",
+    "content": "米黄墙体配红旗，工农兵雕塑诉说岁月，傍晚灯光亮起，大桥如长虹卧波，复古又震撼。 ✨路线建议（轻松不赶） 达摩古洞 → 燕子矶 → 长江大桥桥头堡 一线串联，江景、禅意、红色历史一网打尽，拍照出片+涨知识，南京citywalk天花板！ #南京旅游 #燕子矶 #达摩古洞 #南京长江大桥 #幕燕滨江 #南京小众打卡 关闭 更多 名称已清空 微信扫一扫赞赏作者",
+    "tags": [
+      "拍照"
+    ],
+    "structured_data": {
+      "locations": [
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "南京半日|禅意石窟*红色丰碑,长江岸的双重浪漫",
+      "note_url": "https://b.460.net.cn/a/582169.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_582169_36",
+    "source_note_id": "b460_582169",
+    "location": "栖霞山",
+    "type": "POI",
+    "content": "喜欢作者 其它金额 赞赏后展示我的头像 作品 暂无作品 喜欢作者 其它金额 ¥ 最低赞赏 ¥0 确定 返回 其它金额 更多 赞赏金额 ¥ 最低赞赏 ¥0 1 2 3 4 5 6 7 8 9 0 . 南京市 · 长江大桥南桥头堡 江苏 , 2小时前 ,",
+    "tags": [
+      "攻略"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "南京半日|禅意石窟*红色丰碑,长江岸的双重浪漫",
+      "note_url": "https://b.460.net.cn/a/582169.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_585834_37",
+    "source_note_id": "b460_585834",
+    "location": "达摩古洞",
+    "type": "POI",
+    "content": "关注我，解锁更多宝藏景点 有人说，读懂南京，一半在秦淮风月，一半在山林禅意。 来南京，我们总习惯性奔赴夫子庙、老门东的热闹人潮，却常常忽略：城北长江之畔的幕府山里，藏着一座沉淀千年的静谧秘境——达摩古洞。 它没有人山人海的喧嚣，却藏着六朝最动人的禅意；它依山临江、石窟林立，更是南京为数不多、传统古韵与现代光影完美交融的小众宝地",
+    "tags": [
+      "攻略"
+    ],
+    "structured_data": {
+      "locations": [
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "幕府藏古洞,一苇渡千年丨达摩洞,南京最治愈的禅意秘境",
+      "note_url": "https://b.460.net.cn/a/585834.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_585834_38",
+    "source_note_id": "b460_585834",
+    "location": "达摩古洞",
+    "type": "POI",
+    "content": "01 千年传说：一苇渡江，缘起金陵 达摩古洞的故事，始于一千五百多年前的南朝梁代。 南北朝佛法盛行，梁武帝崇信佛法，广建寺院、礼遇高僧。天竺高僧菩提达摩远渡重洋来到中土，抵达金陵与梁武帝论道参禅。 奈何道不相契、机缘未合，达摩深知金陵缘浅，决意北上。 武帝醒悟后心生悔意，派人策马追赶。追兵至幕府山间，两侧山峰骤然合拢，困住车马，此地因此得名夹骡峰。",
+    "tags": [
+      "攻略"
+    ],
+    "structured_data": {
+      "locations": [
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "幕府藏古洞,一苇渡千年丨达摩洞,南京最治愈的禅意秘境",
+      "note_url": "https://b.460.net.cn/a/585834.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_585834_39",
+    "source_note_id": "b460_585834",
+    "location": "达摩古洞",
+    "type": "POI",
+    "content": "而此时的达摩，已然行至长江岸边。 浩浩江水横亘前路，无船可渡。他淡然折下一茎芦苇，轻置于江水之上，踏苇乘风，飘然渡江，留下千古佳话——一苇渡江。 渡江之前，达摩曾在幕府山天然溶洞中静坐修行、面壁参悟。后人感念于此，便将这座山洞命名为达摩古洞。 千年风雨更迭，朝代几经变迁。唯有幕府山依旧伫立，古洞依旧清幽，静静守着这段属于金陵的禅宗往事。",
+    "tags": [
+      "攻略"
+    ],
+    "structured_data": {
+      "locations": [
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "幕府藏古洞,一苇渡千年丨达摩洞,南京最治愈的禅意秘境",
+      "note_url": "https://b.460.net.cn/a/585834.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_585834_40",
+    "source_note_id": "b460_585834",
+    "location": "达摩古洞",
+    "type": "POI",
+    "content": "02 石窟寻幽：百尊达摩，一步一禅 走进达摩古洞景区，最先震撼人心的，便是依山而凿的百态达摩石窟群。 绵延数十米的天然崖壁之上，错落雕刻着一百零一尊达摩造像。 造像形态万千、姿态各异：或静坐面壁、闭目沉思；或拱手而立、淡然渡江；或打坐参禅、静心悟道。每一尊佛像神情细腻、栩栩如生，顺着山势错落分布，岩壁斑驳古朴，自带沧桑厚重的历史气息。",
+    "tags": [
+      "攻略"
+    ],
+    "structured_data": {
+      "locations": [
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "幕府藏古洞,一苇渡千年丨达摩洞,南京最治愈的禅意秘境",
+      "note_url": "https://b.460.net.cn/a/585834.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_585834_41",
+    "source_note_id": "b460_585834",
+    "location": "达摩古洞",
+    "type": "POI",
+    "content": "不同于寺庙里规整庄严的佛像，这里的百尊达摩，千姿百态、烟火又淡然。 行走其间，抬眼皆是崖壁禅影，风声穿林而过，浮躁的心，会瞬间安静下来。 拾级而上，抵达山洞深处，便是真正的达摩古洞遗址。 天然溶洞冬暖夏凉、清幽静谧，岩壁留有历代文人、僧人留下的石刻印记。置身洞中，背靠青山、面朝长江，仿佛能触摸到千年前达摩面壁修行的沉静与通透。",
+    "tags": [
+      "攻略"
+    ],
+    "structured_data": {
+      "locations": [
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "幕府藏古洞,一苇渡千年丨达摩洞,南京最治愈的禅意秘境",
+      "note_url": "https://b.460.net.cn/a/585834.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_585834_42",
+    "source_note_id": "b460_585834",
+    "location": "栖霞山",
+    "type": "POI",
+    "content": "一山一洞，一壁一佛，藏尽金陵山水 03 光影新生：千年古洞，遇见未来之美 如果说石窟与古洞，是岁月留给南京的古韵底色； 那一苇渡光影艺术馆，就是这座千年古洞最惊艳的新生。 依托山体天然岩壁打造的沉浸式光影空间，粗糙原始的山石肌理，遇上流动梦幻的现代光影，禅意古风与赛博未来感完美碰撞。",
+    "tags": [
+      "攻略"
+    ],
+    "structured_data": {
+      "locations": [
+        "栖霞山"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "幕府藏古洞,一苇渡千年丨达摩洞,南京最治愈的禅意秘境",
+      "note_url": "https://b.460.net.cn/a/585834.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_585834_43",
+    "source_note_id": "b460_585834",
+    "location": "达摩古洞",
+    "type": "避坑",
+    "content": "流云、江水、芦苇、佛光层层叠叠在岩壁与镜面之间流转，沉浸式还原一苇渡江的传奇画面。 没有厚重的商业化喧闹，只有光影流转、禅音悠悠。 站在光影中央，仿佛穿越千年时空，亲眼见证达摩踏苇渡江、渡尽凡尘的超然洒脱。 这里也是整个景区最出片的地方。无需刻意构图，随手一拍，都是独属于南京的 04 临江望远，尽揽江天一色 登顶夹骡峰观景台，视野豁然开朗。",
+    "tags": [
+      "拍照"
+    ],
+    "structured_data": {
+      "locations": [
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "幕府藏古洞,一苇渡千年丨达摩洞,南京最治愈的禅意秘境",
+      "note_url": "https://b.460.net.cn/a/585834.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_585834_44",
+    "source_note_id": "b460_585834",
+    "location": "达摩古洞",
+    "type": "POI",
+    "content": "一面是层峦叠翠的幕府山林，绿意绵延； 一面是浩浩汤汤的万里长江，奔流不息。 江风拂面，远山、江水、城景融为一体，金陵山河壮阔，尽数收于眼底。 傍晚时分最为治愈。夕阳铺在江面，粼粼波光随风摇曳，晚风温柔、人迹稀少，独享一份城市难得的宁静。 在南京待久了，总需要这样一处山水秘境，暂时逃离城市烟火，安放 📝 达摩古洞游玩实用攻略",
+    "tags": [
+      "攻略"
+    ],
+    "structured_data": {
+      "locations": [
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "幕府藏古洞,一苇渡千年丨达摩洞,南京最治愈的禅意秘境",
+      "note_url": "https://b.460.net.cn/a/585834.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_585834_45",
+    "source_note_id": "b460_585834",
+    "location": "达摩古洞",
+    "type": "交通",
+    "content": "📍 地址：南京市栖霞区永济大道19号（幕燕滨江风貌区内） 🎫 门票：30元/人（含光影艺术馆，南京旅游年卡免费入园） ⏰ 时间：08:30—17:00（16:30停止入园，周一光影馆闭馆维护） 🚗 出行：地铁3号线上元门站出站转公交可达，自驾可直接导航「达摩古洞」 ✅ 游玩建议 1. 建议下午入园，光影馆灯光效果更佳，傍晚可看绝美江景；",
+    "tags": [
+      "交通",
+      "门票"
+    ],
+    "structured_data": {
+      "locations": [
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "幕府藏古洞,一苇渡千年丨达摩洞,南京最治愈的禅意秘境",
+      "note_url": "https://b.460.net.cn/a/585834.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_585834_46",
+    "source_note_id": "b460_585834",
+    "location": "达摩古洞",
+    "type": "避坑",
+    "content": "2. 穿搭建议素色、新中式，适配禅意氛围，拍照高级出片； 3. 景区清幽人少，适合散心、静心、慢 写在最后 金陵城，自古一半繁华，一半清欢。 闹市之外，幕府山间，达摩古洞藏着南京最温柔、最沉静的一面。 千年之前，达摩一苇渡江，渡的是凡尘执念； 千年之后，我们踏山寻幽，寻的是内心安然。 若你厌倦了人潮拥挤，不妨来这里走一走。",
+    "tags": [
+      "拍照"
+    ],
+    "structured_data": {
+      "locations": [
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "幕府藏古洞,一苇渡千年丨达摩洞,南京最治愈的禅意秘境",
+      "note_url": "https://b.460.net.cn/a/585834.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
+  },
+  {
+    "chunk_id": "ck_b460_585834_47",
+    "source_note_id": "b460_585834",
+    "location": "达摩古洞",
+    "type": "路线",
+    "content": "听山间风、看岩壁佛、望长江水，在千年禅意里，遇见温柔自在 #南京旅游 #达摩古洞 #南京小众打卡地 #幕府山 #一苇渡江 #金陵秘境 #南京周末好去处",
+    "tags": [
+      "拍照"
+    ],
+    "structured_data": {
+      "locations": [
+        "达摩古洞"
+      ],
+      "activities": [],
+      "time_hint": "",
+      "food": [],
+      "tips": []
+    },
+    "source_ref": {
+      "note_title": "幕府藏古洞,一苇渡千年丨达摩洞,南京最治愈的禅意秘境",
+      "note_url": "https://b.460.net.cn/a/585834.html",
+      "image": ""
+    },
+    "confidence": 0.9,
+    "created_at": "2026-09-23"
   }
 ]

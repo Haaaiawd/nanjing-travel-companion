@@ -7,7 +7,9 @@ from __future__ import annotations
 
 import json
 import random
+import re
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Protocol
 
@@ -198,33 +200,144 @@ class WebSource:
         return note.get("note", note) if isinstance(note, dict) else {}
 
 
+def _parse_count(v) -> int:
+    """'1.7万' / '10万+' / '4695' → int。"""
+    s = str(v or "0").strip().rstrip("+")
+    try:
+        if s.endswith("万"):
+            return int(float(s[:-1]) * 10000)
+        return int(float(s))
+    except ValueError:
+        return 0
+
+
+_TAG_RE = re.compile(r"#([^\[\]#]{1,30})\[话题\]#")
+
+
+def _mcp_note_to_raw(note: dict, feed_id: str) -> dict:
+    """detail 响应的 note → normalize_note 兼容 dict。"""
+    desc = note.get("desc", "")
+    tags = _TAG_RE.findall(desc)
+    text = _TAG_RE.sub("", desc).strip()
+    ts = note.get("time")
+    created = (datetime.fromtimestamp(ts / 1000, tz=timezone.utc)
+               .isoformat(timespec="seconds")) if ts else ""
+    interact = note.get("interactInfo", {})
+    return {
+        "note_id": note.get("noteId") or feed_id,
+        "title": note.get("title", ""),
+        "desc": text,
+        "author": (note.get("user") or {}).get("nickname", ""),
+        "liked_count": _parse_count(interact.get("likedCount")),
+        "image_urls": [i.get("urlDefault") for i in note.get("imageList", [])
+                       if i.get("urlDefault")],
+        "tags": tags,
+        "created_at": created,
+        "url": f"https://www.xiaohongshu.com/explore/{feed_id}",
+    }
+
+
 class MCPSource:
-    """本地 xiaohongshu-mcp 服务（若用户已部署）。接口按常见实现封装。"""
+    """本地 xiaohongshu-mcp 服务（xpzouying, :18060）的真实抓取。
+
+    服务用 go-rod 驱动真 Chrome，签名由 XHS 自己的 JS 完成 —— 本类只管 HTTP。
+    - search():  GET  /api/v1/feeds/search?keyword=  （**需登录**，未登录返回空）
+    - fetch_note(): POST /api/v1/feeds/detail         （游客可用，需 xsecToken）
+    - list_feeds(): GET /api/v1/feeds/list            （游客可用，首页推荐流）
+    search/list 返回的 feed 自带 xsecToken，本类缓存 note_id→token 供 detail 用。
+    """
 
     def __init__(self, base_url: str | None = None,
                  session: requests.Session | None = None,
-                 limiter: RateLimiter | None = None) -> None:
+                 limiter: RateLimiter | None = None,
+                 timeout: float = 90.0) -> None:
         self.base_url = (base_url or config.XHS_MCP_URL).rstrip("/")
         self.session = session or requests.Session()
-        self.limiter = limiter or RateLimiter(min_interval=1.0, jitter=0.5)
+        self.limiter = limiter or RateLimiter(min_interval=2.0, jitter=1.0)
+        self.timeout = timeout
+        self._tokens: dict[str, str] = {}
+        self._cards: dict[str, dict] = {}
+
+    # -- 登录态 ---------------------------------------------------------------
+
+    def is_logged_in(self) -> bool:
+        try:
+            d = self._request("GET", "/api/v1/login/status")
+            return bool(d.get("is_logged_in"))
+        except Exception:
+            return False
+
+    # -- HTTP 基础设施 ---------------------------------------------------------
+
+    def _request(self, method: str, path: str, **kw) -> dict:
+        """限速 + 调用 MCP API，解包 {success,data}/{error} 返回 data。"""
+        last_exc: Exception | None = None
+        for backoff in (2, 4, 8):
+            self.limiter.wait()
+            try:
+                resp = self.session.request(
+                    method, f"{self.base_url}{path}", timeout=self.timeout, **kw)
+            except requests.RequestException as e:
+                last_exc = e
+                continue
+            if resp.status_code == 404:
+                raise RuntimeError(f"MCP 404 {path} — 服务版本不符？")
+            try:
+                payload = resp.json()
+            except ValueError:
+                last_exc = RuntimeError(f"HTTP {resp.status_code}: {resp.text[:200]}")
+                time.sleep(backoff)
+                continue
+            if not payload.get("success", False):
+                raise RuntimeError(
+                    f"MCP {path} 失败: {payload.get('error') or payload.get('message')}")
+            return payload.get("data") or {}
+        raise RuntimeError(f"MCP {path} 重试后仍失败") from last_exc
+
+    def _index_feeds(self, feeds: list[dict]) -> None:
+        for f in feeds:
+            nid = f.get("id")
+            if nid and f.get("xsecToken"):
+                self._tokens[nid] = f["xsecToken"]
+            if nid and f.get("noteCard"):
+                self._cards[nid] = f["noteCard"]
+
+    # -- NoteSource 协议 --------------------------------------------------------
 
     def search(self, keyword: str, limit: int = 20) -> list[str]:
-        self.limiter.wait()
-        resp = self.session.post(
-            f"{self.base_url}/api/search",
-            json={"keyword": keyword, "limit": limit}, timeout=20,
-        )
-        resp.raise_for_status()
-        items = resp.json().get("notes", [])
-        return [n["note_id"] for n in items if "note_id" in n]
+        """真搜索（需登录；未登录 MCP 返回空 feeds，语义=无结果）。"""
+        data = self._request("GET", "/api/v1/feeds/search",
+                             params={"keyword": keyword})
+        feeds = data.get("feeds") or []
+        self._index_feeds(feeds)
+        return [f["id"] for f in feeds if f.get("id")][:limit]
+
+    def list_feeds(self) -> list[str]:
+        """游客首页推荐流，返回 note_ids（同时缓存 tokens）。"""
+        data = self._request("GET", "/api/v1/feeds/list")
+        feeds = data.get("feeds") or []
+        self._index_feeds(feeds)
+        return [f["id"] for f in feeds if f.get("id")]
+
+    def register_token(self, note_id: str, xsec_token: str) -> None:
+        """外部渠道（如频道页 DOM）拿到的 token 手工登记。"""
+        if note_id and xsec_token:
+            self._tokens[note_id] = xsec_token
 
     def fetch_note(self, note_id: str) -> dict:
-        self.limiter.wait()
-        resp = self.session.get(
-            f"{self.base_url}/api/notes/{note_id}", timeout=20
-        )
-        resp.raise_for_status()
-        return resp.json()
+        """拉详情并拍平成 normalize_note 兼容 dict。"""
+        token = self._tokens.get(note_id)
+        if not token:
+            raise ValueError(
+                f"{note_id} 无 xsec_token —— 先经 search()/list_feeds()/register_token()")
+        data = self._request(
+            "POST", "/api/v1/feeds/detail",
+            json={"feed_id": note_id, "xsec_token": token,
+                  "load_all_comments": False})
+        note = (data.get("data") or {}).get("note") or {}
+        if not note:
+            raise RuntimeError(f"{note_id} 详情为空")
+        return _mcp_note_to_raw(note, note_id)
 
 
 def normalize_note(raw: dict, note_id_hint: str = "") -> Note:

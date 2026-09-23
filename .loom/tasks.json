@@ -441,6 +441,103 @@
       "created_at": "2026-09-22T17:05:44.337Z",
       "updated_at": "2026-09-22T17:17:38.228Z",
       "completed_at": "2026-09-22T17:17:38.228Z"
+    },
+    {
+      "id": "TASK-008",
+      "title": "Real Xiaohongshu scraping pipeline via xiaohongshu-mcp",
+      "outcome": "MCPSource talks to local xpzouying/xiaohongshu-mcp v2.5.0 (search/list/detail + xsec_token cache), ImageDownloader retries, data/raw holds real notes incl. 6 authentic Nanjing notes, mocks grounded in real content, tests green.",
+      "acceptance": [
+        {
+          "criterion": "MCPSource implements real v2.5.0 API with 2s rate limit",
+          "verify_by": "grep src/scraper/xhs_client.py for /api/v1/feeds/search + tests/test_scraper.py MCP fake-session tests",
+          "evidence": "src/scraper/xhs_client.py: /api/v1/feeds/search|list|detail + /api/v1/login/status; token cache; RateLimiter(2s+jitter); 13 MCP unit tests pass"
+        },
+        {
+          "criterion": "Downloader retries (404=fail-fast, 5xx/timeout=retry) and skips cached files",
+          "verify_by": "tests/test_scraper.py downloader tests",
+          "evidence": "src/scraper/downloader.py _fetch() backoff 0/1/3s; tests assert no-retry on 404 and idempotent skip"
+        },
+        {
+          "criterion": "Real notes in data/raw incl. >=5 Nanjing notes with images",
+          "verify_by": "ls data/raw/notes; data/raw/HARVEST.md provenance",
+          "evidence": "6 Nanjing notes (669100bd…/66af89c9…/66c221e3…/667da849…/6689598e…/666aafc6…) each with real cover image; provenance in data/raw/HARVEST.md"
+        },
+        {
+          "criterion": ">=5 mock notes grounded in real references, ids preserved",
+          "verify_by": "_reference field in data/mock/notes/*.json",
+          "evidence": "All 6 mocks updated; _reference field cites source note ids (e.g. xhs_mix_001 cites 66af89c9 + 667da849 real prices/shops)"
+        },
+        {
+          "criterion": "pytest green; live search test login-gated",
+          "verify_by": ".venv/bin/python -m pytest -q",
+          "evidence": "36 passed, 1 skipped: test_mcp_live_search skipped unless XHS_LIVE=1 and MCP is_logged_in"
+        }
+      ],
+      "done_when": [],
+      "boundaries": [
+        "no changes to src/ocr src/knowledge src/agent",
+        "authenticated keyword search blocked until user scans QR (documented)"
+      ],
+      "depends_on": [],
+      "reads": [
+        ".loom/design/SCRAPER.md",
+        ".loom/design/task-brief-scraper.md"
+      ],
+      "touches": [
+        "src/scraper/",
+        "tests/test_scraper.py",
+        "data/raw/",
+        "data/mock/notes/",
+        "scripts/",
+        ".loom/design/SCRAPER.md"
+      ],
+      "implements": ".loom/design/SCRAPER.md",
+      "design_exemption": "",
+      "capability_hooks": [],
+      "capability_exemption": "",
+      "integrity_version": 1,
+      "covers": [],
+      "status": "done",
+      "progress": {
+        "completed": [],
+        "current": "complete",
+        "next": ""
+      },
+      "evidence": [
+        "pytest: 36 passed, 1 skipped (live search test gated on MCP login; service is_logged_in=false)",
+        "data/raw/notes: 20 real notes (13 MCP channel tokens + 6 Nanjing mirror-derived + 1 feed), data/raw/images: 82 files",
+        "6 mock notes rewritten with real-note details + _reference provenance; downstream ids unchanged",
+        "Auth keyword search NOT live-verified: requires one-time QR login (scripts/xhs_login.py)",
+        {
+          "type": "acceptance_results",
+          "results": [
+            {
+              "criterion": "MCPSource implements real v2.5.0 API with 2s rate limit",
+              "evidence": "src/scraper/xhs_client.py: /api/v1/feeds/search|list|detail + /api/v1/login/status; token cache; RateLimiter(2s+jitter); 13 MCP unit tests pass"
+            },
+            {
+              "criterion": "Downloader retries (404=fail-fast, 5xx/timeout=retry) and skips cached files",
+              "evidence": "src/scraper/downloader.py _fetch() backoff 0/1/3s; tests assert no-retry on 404 and idempotent skip"
+            },
+            {
+              "criterion": "Real notes in data/raw incl. >=5 Nanjing notes with images",
+              "evidence": "6 Nanjing notes (669100bd…/66af89c9…/66c221e3…/667da849…/6689598e…/666aafc6…) each with real cover image; provenance in data/raw/HARVEST.md"
+            },
+            {
+              "criterion": ">=5 mock notes grounded in real references, ids preserved",
+              "evidence": "All 6 mocks updated; _reference field cites source note ids (e.g. xhs_mix_001 cites 66af89c9 + 667da849 real prices/shops)"
+            },
+            {
+              "criterion": "pytest green; live search test login-gated",
+              "evidence": "36 passed, 1 skipped: test_mcp_live_search skipped unless XHS_LIVE=1 and MCP is_logged_in"
+            }
+          ],
+          "at": "2026-09-23T01:57:36.912Z"
+        }
+      ],
+      "created_at": "2026-09-23T01:57:24.260Z",
+      "updated_at": "2026-09-23T01:57:36.912Z",
+      "completed_at": "2026-09-23T01:57:36.912Z"
     }
   ]
 }

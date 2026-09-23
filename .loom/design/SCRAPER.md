@@ -20,8 +20,8 @@ class NoteSource(Protocol):
 | 实现 | 用途 | 说明 |
 |------|------|------|
 | `FixtureSource` | 测试/离线开发 | 从 `data/mock/notes/*.json` 读，支持关键词过滤 |
-| `WebSource` | 真实抓取 | requests + cookies 打 web 端接口，内建反爬策略 |
-| `MCPSource` | 备选 | 本地 xiaohongshu-mcp 服务（localhost:18060）若可用 |
+| `MCPSource` | **真实抓取主路径** | 本机已部署的 xiaohongshu-mcp（:18060）HTTP API；登录后真搜索 |
+| `WebSource` | 窄路径 | requests + cookies 抓详情页（无真搜索），保留 |
 
 `XhsScraper` 编排任意 source：`scrape(keywords) → Note → save_note() +
 download_images()`。切换渠道不改编排代码。
@@ -51,7 +51,7 @@ download_images()`。切换渠道不改编排代码。
   "title": "南京3天2晚保姆级攻略",
   "author": "小熊软糖",
   "url": "https://www.xiaohongshu.com/explore/abc123",
-  "images": ["data/raw/images/xhs_abc123_0.jpg", "..."],
+  "images": ["/abs/path/data/raw/images/xhs_abc123_0.jpg", "..."],
   "text": "正文文字（可能很短）",
   "tags": ["南京旅游", "攻略", "明孝陵"],
   "likes": 2341,
@@ -60,8 +60,8 @@ download_images()`。切换渠道不改编排代码。
 }
 ```
 
-`images` 存的是**本地相对路径**（下载完成后），不是原始 URL —— 下游 ocr 直接读盘。
-原始 CDN URL 保留在 `image_urls` 字段备查。
+`images` 存的是**本地绝对路径**（下载完成后），不是原始 URL —— 下游 ocr 直接读盘，
+绝对路径不受调用方 cwd 影响。原始 CDN URL 保留在 `image_urls` 字段备查。
 
 ### 关键词集（默认搜索计划）
 `南京旅游攻略` `南京美食` `南京拍照` `明孝陵` `中山陵` `夫子庙` `老门东`
@@ -72,3 +72,54 @@ download_images()`。切换渠道不改编排代码。
 - 不解析图片内容、不做 dedup 内容判断（同图不同笔记是合法重复，ocr 缓存处理）。
 - 真实抓取不做验收；验收的是限速器行为、Note 序列化格式、下载器幂等、
   FixtureSource 驱动全流程。
+
+## 开源方案调研（2026-09，全部实测验证）
+
+候选方案评估：
+
+| 方案 | 原理 | cookies | 签名难度 | 结论 |
+|------|------|---------|----------|------|
+| **xpzouying/xiaohongshu-mcp** | go-rod 驱动真实 Chrome，XHS 自己的 JS 完成签名 | 扫码一次，服务端持久化 | 不需要管 | ✅ **已部署**（:18060, v2.5.0, docker 3 周），首选 |
+| 纯 requests + cookies | 直打 web 端点 | 需要 | X-S/X-T/X-S-common 由混淆 JS 生成 | ❌ 数据中心 IP 只拿到 stub/登录墙，实测 |
+| Playwright 自研 | 同 MCP 思路 | 需要 | 不需要管 | 可行但重复造轮子，MCP 已覆盖 |
+| MediaCrawler | playwright + 签名注入 | 需要 | 内置 | 可行，体量远大于需求 |
+| 搜索引擎 → note_id → 详情 | bing/baidu 索引 note URL | — | — | ❌ 实测 bing 无索引；且 detail 需要 xsec_token，搜索引擎拿不到 |
+| 第三方解析站（6li6 等） | 镜像他人抓取结果 | — | — | ❌ 抓「抓的抓」，脆弱且灰色 |
+
+### 实测结果（本机，数据中心 IP，未登录）
+
+| 通道 | 结果 |
+|------|------|
+| `GET www.xiaohongshu.com/explore`（匿名） | 302 → 登录页，无 `__INITIAL_STATE__` 数据 |
+| `GET /search_result?keyword=`（匿名） | 200 但 `search.feeds=[]`、`user.loggedIn=false` |
+| `GET /explore/{note_id}`（匿名） | 200 但 `noteDetailMap={}` |
+| MCP `GET /api/v1/feeds/list` | ✅ **免登录**，~27 条首页推荐（泛内容，带 xsecToken） |
+| MCP `POST /api/v1/feeds/detail` | ✅ **免登录**（需 feed 的 xsecToken），完整 title/desc/imageList/互动数 |
+| MCP `GET /api/v1/feeds/search` | ❌ 未登录返回空 feeds |
+| 页内签名 `_webmsxyw` + `edith …/search/notes` | ❌ 签名被接受但 `-104 无权限`（搜索对游客关闭） |
+| 页内签名 `…/homefeed` 手搓调用 | ❌ 461（需要完整 x-s-common 会话态，不值得复刻） |
+| MCP `POST /api/v1/user/profile` | ❌ 需用户主页级 xsec_token，拿不到 |
+| CDP 劫持 MCP 的浏览器换频道页 | 可行但浏览器按调用生灭，竞态不可用 |
+
+### 结论与选型
+
+**关键词真搜索 = 必须登录**。小红书对游客关闭搜索 API，任何不登录的
+「真搜索」都是幻觉。选定路径：
+
+1. **主路径 `MCPSource`**：对接本机已部署的 xiaohongshu-mcp HTTP API
+   （`GET /api/v1/feeds/search`、`POST /api/v1/feeds/detail`、
+   `GET /api/v1/feeds/list`、`GET /api/v1/login/status`）。
+   用户扫码一次（`GET /api/v1/login/qrcode` 返回 4 分钟有效 PNG）后
+   cookies 持久化在容器卷 `/home/haa/xiaohongshu-mcp/data/cookies.json`。
+2. **游客降级**：未登录时 `feeds/list` + `feeds/detail` 仍可用——
+   首页推荐流真实笔记可抓，用于验证管线；拿不到定向关键词结果。
+3. `WebSource` 保留为「有 cookies 时抓详情页」的窄路径；搜索仍需签名，不实装。
+
+### MCP API 关键形态（v2.5.0）
+
+- `GET /api/v1/feeds/search?keyword=X` → `{success, data:{feeds:[{id, xsecToken, noteCard:{displayTitle,user,interactInfo,cover}}], count}}`
+- `POST /api/v1/feeds/detail` `{feed_id, xsec_token, load_all_comments:false}` →
+  `{data:{data:{note:{noteId,title,desc,time(ms),user,interactInfo,imageList[{urlDefault,urlPre}]}, comments}}}`
+- `xsecToken` 按笔记发放、detail 必带；search/list 结果是唯一可靠来源。
+- `imageList[].urlDefault` 是 `sns-webpic-qc.xhscdn.com` CDN 地址，带时效参数，
+  需尽快下载；实测 CDN 无鉴权，纯 GET 可拉。

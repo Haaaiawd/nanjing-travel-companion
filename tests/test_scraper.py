@@ -9,9 +9,10 @@ import pytest
 
 from src.scraper.downloader import ImageDownloader
 from src.scraper.models import Note
-from src.scraper.xhs_client import (AuthError, FixtureSource, RateLimiter,
-                                    UA_POOL, WebSource, XhsScraper,
-                                    normalize_note)
+from src.scraper.xhs_client import (AuthError, FixtureSource, MCPSource,
+                                    RateLimiter, UA_POOL, WebSource,
+                                    XhsScraper, _mcp_note_to_raw,
+                                    _parse_count, normalize_note)
 
 
 class FakeClock:
@@ -145,3 +146,133 @@ def test_websource_auth_error_no_retry():
     with pytest.raises(AuthError):
         src.fetch_note("n1")
     assert len(session.calls) == 1  # 403 不重试
+
+
+# --- MCPSource（xpzouying/xiaohongshu-mcp HTTP API） ---------------------------
+
+
+class _MCPFakeSession:
+    """按 URL 返回预置 JSON 的假 session。"""
+
+    def __init__(self, routes: dict):
+        self.routes = routes
+        self.calls: list[dict] = []
+
+    def request(self, method, url, timeout=None, **kw):
+        self.calls.append({"method": method, "url": url, "kw": kw})
+        for key, payload in self.routes.items():
+            if key in url:
+                return _JsonResp(payload)
+        return _JsonResp({"error": "not found", "code": "404"}, status=404)
+
+
+class _JsonResp:
+    def __init__(self, payload, status=200):
+        self.payload = payload
+        self.status_code = status
+        self.text = json.dumps(payload)
+
+    def json(self):
+        return self.payload
+
+
+def _mcp(routes) -> MCPSource:
+    return MCPSource(base_url="http://mcp.test",
+                     session=_MCPFakeSession(routes),
+                     limiter=RateLimiter(0, 0, sleeper=lambda s: None))
+
+
+_SEARCH_PAYLOAD = {
+    "success": True,
+    "data": {"feeds": [
+        {"id": "n1", "xsecToken": "tok1",
+         "noteCard": {"displayTitle": "南京攻略"}},
+        {"id": "n2", "xsecToken": "tok2",
+         "noteCard": {"displayTitle": "明孝陵"}},
+    ], "count": 2},
+}
+
+_DETAIL_PAYLOAD = {
+    "success": True,
+    "data": {"feed_id": "n1", "data": {"note": {
+        "noteId": "n1", "title": "南京3天2晚攻略",
+        "desc": "正文 #南京旅游[话题]# #明孝陵[话题]#",
+        "time": 1758000000000, "ipLocation": "江苏",
+        "user": {"nickname": "金陵玩家"},
+        "interactInfo": {"likedCount": "1.2万"},
+        "imageList": [{"urlDefault": "http://cdn/1.jpg"},
+                      {"urlDefault": "http://cdn/2.jpg"}],
+    }}},
+}
+
+
+def test_mcp_search_caches_tokens():
+    src = _mcp({"/api/v1/feeds/search": _SEARCH_PAYLOAD})
+    ids = src.search("南京旅游", 10)
+    assert ids == ["n1", "n2"]
+    assert src._tokens == {"n1": "tok1", "n2": "tok2"}
+    call = src.session.calls[0]
+    assert call["method"] == "GET" and "search" in call["url"]
+    assert call["kw"]["params"] == {"keyword": "南京旅游"}
+
+
+def test_mcp_fetch_note_uses_detail_api():
+    src = _mcp({"/api/v1/feeds/search": _SEARCH_PAYLOAD,
+                "/api/v1/feeds/detail": _DETAIL_PAYLOAD})
+    src.search("南京", 10)
+    raw = src.fetch_note("n1")
+    body = src.session.calls[-1]["kw"]["json"]
+    assert body["feed_id"] == "n1" and body["xsec_token"] == "tok1"
+    note = normalize_note(raw)
+    assert note.title == "南京3天2晚攻略" and note.author == "金陵玩家"
+    assert note.text == "正文"
+    assert note.tags == ["南京旅游", "明孝陵"]
+    assert note.likes == 12000
+    assert note.image_urls == ["http://cdn/1.jpg", "http://cdn/2.jpg"]
+
+
+def test_mcp_fetch_note_without_token_fails():
+    src = _mcp({})
+    with pytest.raises(ValueError, match="xsec_token"):
+        src.fetch_note("nope")
+
+
+def test_mcp_search_unlogged_returns_empty():
+    src = _mcp({"/api/v1/feeds/search":
+                {"success": True, "data": {"feeds": [], "count": 0}}})
+    assert src.search("南京", 10) == []
+
+
+def test_mcp_list_feeds_guest():
+    src = _mcp({"/api/v1/feeds/list": _SEARCH_PAYLOAD})
+    ids = src.list_feeds()
+    assert ids == ["n1", "n2"] and src._tokens["n1"] == "tok1"
+
+
+def test_parse_count_variants():
+    assert _parse_count("1.7万") == 17000
+    assert _parse_count("10万+") == 100000
+    assert _parse_count("4695") == 4695
+    assert _parse_count("") == 0
+
+
+def test_mcp_note_to_raw_shape():
+    raw = _mcp_note_to_raw(_DETAIL_PAYLOAD["data"]["data"]["note"], "n1")
+    for key in ("note_id", "title", "desc", "author", "image_urls",
+                    "tags", "created_at", "url"):
+        assert key in raw
+    assert raw["url"].endswith("/explore/n1")
+
+
+@pytest.mark.skipif(
+    __import__("os").environ.get("XHS_LIVE") != "1",
+    reason="真实抓取需 XHS_LIVE=1 且 MCP 已扫码登录")
+def test_mcp_live_search_and_detail():
+    """手动验收：XHS_LIVE=1 pytest -k live。需服务已登录。"""
+    src = MCPSource()  # 默认 config.XHS_MCP_URL
+    assert src.is_logged_in(), "MCP 未登录 — 先扫码"
+    ids = src.search("南京旅游攻略", 5)
+    assert ids, "登录后搜索应返回结果"
+    raw = src.fetch_note(ids[0])
+    note = normalize_note(raw)
+    assert note.title and note.image_urls

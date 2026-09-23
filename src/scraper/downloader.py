@@ -1,6 +1,8 @@
 """图片下载器：把 Note.image_urls 落成 data/raw/images/{note_id}_{idx}.{ext}。"""
 from __future__ import annotations
 
+import random
+import time
 from pathlib import Path
 
 import requests
@@ -8,7 +10,6 @@ import requests
 from .. import config
 from .models import Note
 from .xhs_client import RateLimiter, UA_POOL
-import random
 
 
 _EXT_BY_MIME = {
@@ -38,6 +39,25 @@ class ImageDownloader:
                 ext = ".jpg"
         return self.images_dir / f"{note_id}_{idx}{ext}"
 
+    def _fetch(self, url: str, headers: dict) -> requests.Response | None:
+        """带退避重试的单图抓取。404/4xx 不重试；超时/连接错/5xx 重试两次。"""
+        for attempt, backoff in enumerate((0, 1.0, 3.0)):
+            if backoff:
+                time.sleep(backoff)
+            self.limiter.wait()
+            try:
+                resp = self.session.get(
+                    url, headers=headers, timeout=self.timeout, stream=True
+                )
+            except requests.RequestException:
+                continue  # 超时/连接错 → 重试
+            if resp.status_code == 404 or 400 <= resp.status_code < 500:
+                return None  # 永久失败不重试
+            if resp.status_code >= 500:
+                continue
+            return resp
+        return None
+
     def download(self, note: Note, referer: str = "") -> list[str]:
         """下载 note.image_urls，填充 note.images（本地路径字符串），幂等。"""
         self.images_dir.mkdir(parents=True, exist_ok=True)
@@ -51,13 +71,8 @@ class ImageDownloader:
             if existing:
                 local.append(str(existing[0]))
                 continue
-            self.limiter.wait()
-            try:
-                resp = self.session.get(
-                    url, headers=headers, timeout=self.timeout, stream=True
-                )
-                resp.raise_for_status()
-            except requests.RequestException:
+            resp = self._fetch(url, headers)
+            if resp is None:
                 continue  # 单图失败不阻塞
             path = self._path_for(
                 note.note_id, idx, url, resp.headers.get("Content-Type", "")
