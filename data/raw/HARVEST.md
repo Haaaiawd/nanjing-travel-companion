@@ -95,3 +95,22 @@ a/587325、a/581760、a/588468 等（第三方游记/考古文章，非笔记体
 **补图路径**：扫码登录（`scripts/xhs_login.py`）后按标题重搜原笔记，
 `feeds/detail` 可取回真实 note_id 与全部 xhscdn 原图，覆盖本批
 `note_id`/`image_urls`/`images` 字段。
+
+## D. Chunk 化与索引（2026-09-23）
+
+13 条 b460 笔记 → 40 个攻略 chunk，脚本 `scripts/chunk_qixia.py`（幂等，
+可重跑）：逐条精读正文人工提取片段，schema 按 `.loom/design/KNOWLEDGE.md`。
+
+- `location` 归一化到 4 个 canonical POI：栖霞山 / 千佛岩 / 舍利塔 /
+  达摩古洞。幕燕滨江片区（燕子矶、五马渡、长江观音景区、幕府山、
+  夹骡峰、一苇渡光影馆）归入「达摩古洞」，真实子地名保留在
+  `structured_data.locations`；对应别名已补进 `graph.py` 的 `POI_SEED`。
+- `type` 分布：POI 24 / 路线 11 / 避坑 7 / 交通 4 / 美食 3 / 其他 2 /
+  住宿 1（含 mock 语料 12 条在内全库 52 chunk）。
+- `source_ref.image`：镜像图床 404、本地无图，回退为笔记
+  `image_urls[0]`（镜像封面 URL）。
+- 全库 = mock 种子 12 + b460 40，经 `KnowledgeGraph.build` +
+  `indexer.build_index`（HashEmbedding，dim=256，无 DASHSCOPE_API_KEY
+  时的离线 provider）重建：`data/processed/chunks.json`、
+  `data/processed/knowledge_graph.json`、`data/index/embeddings.json`、
+  `data/index/search_index.json`。

@@ -123,3 +123,18 @@ download_images()`。切换渠道不改编排代码。
 - `xsecToken` 按笔记发放、detail 必带；search/list 结果是唯一可靠来源。
 - `imageList[].urlDefault` 是 `sns-webpic-qc.xhscdn.com` CDN 地址，带时效参数，
   需尽快下载；实测 CDN 无鉴权，纯 GET 可拉。
+
+### 追加实测（2026-09-23，栖霞区定向采集）
+
+| 通道 | 结果 |
+|------|------|
+| `POST /api/v1/user/profile` `{user_id, xsec_token}` | ✅ **游客态可用**——token 是用户级（XHS 笔记内 @提及锚点上带的 token 即用户 token）。返回 userBasicInfo + feeds[noteCard]，但 **note id 被置空**（游客响应剥离 id/modelType，只剩封面/标题/互动数） |
+| `feeds/detail` 用他笔记/用户 token | ❌ 500——xsec_token 严格按资源绑定 |
+| 6li6 `/q?w=` 站内搜 | ❌ 只索引 bilibili 分区，xiaohongshu 分区无搜索 |
+| 6li6 list/archive 全量扫描（~7600 页） | ❌ 栖霞相关内容近零；该站 XHS 笔记为「用户解析驱动」，无主题覆盖保证 |
+| **b.460.net.cn**（江苏便民信息网） | ✅ **XHS 笔记整段转载农场**：正文保留 `data-v-*` Vue 标记、hashtag 尾块、`data-user-id`/`data-xsec-token` @提及锚点，可判定真实笔记；`/a/{seq}.html` 顺序号可扫，Google `site:` 有索引。⚠️ 不保留上游 note_id；图片走 `img.bim99.cn` 已全站 404；同站混有微信公众号转载（"点赞/在看/内容来源" UI），需按 XHS 特征过滤 |
+| 搜索引擎（Google/Bing/so/sm/百度）找 note URL | ❌ 目标关键词均无 `xiaohongshu.com/explore/{id}` 索引命中 |
+
+**结论**：游客态拿不到「定向关键词 + note_id + 原图」三者齐全的笔记。
+b.460 镜像可补真实正文/tags（note_id 为镜像号），图片缺口只能等登录后
+`feeds/search` 按标题重搜回填。采集脚本：`scripts/mirror_460_harvest.py`。

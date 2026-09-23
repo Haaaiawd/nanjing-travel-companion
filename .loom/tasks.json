@@ -538,6 +538,97 @@
       "created_at": "2026-09-23T01:57:24.260Z",
       "updated_at": "2026-09-23T01:57:36.912Z",
       "completed_at": "2026-09-23T01:57:36.912Z"
+    },
+    {
+      "id": "TASK-009",
+      "title": "栖霞 b460 笔记 → 精编 Chunk + 索引重建",
+      "outcome": "data/processed/chunks.json 含 13 条栖霞笔记的 40 个 schema 合规 chunk（+12 mock 种子共 52），embeddings/search_index/knowledge_graph 同步重建，检索可按栖霞山/千佛岩/舍利塔/达摩古洞召回。",
+      "acceptance": [
+        {
+          "criterion": "chunks.json 全部为合法 Chunk schema 且 content ≤200 字",
+          "verify_by": "python 逐字段校验 + 长度检查",
+          "evidence": "逐字段校验通过；>200字 content: []"
+        },
+        {
+          "criterion": "location 归一化到 栖霞山/千佛岩/舍利塔/达摩古洞",
+          "verify_by": "统计 chunks.json location 分布",
+          "evidence": "b460 chunk location 分布：栖霞山28/达摩古洞10/舍利塔1/千佛岩1；幕燕滨江子地名进 structured_data.locations 并在 POI_SEED 建别名"
+        },
+        {
+          "criterion": "检索 query「达摩古洞拍照」「千佛岩」「燕子矶骑行」命中对应 canonical POI chunk",
+          "verify_by": "Retriever.retrieve 实跑 top-k 检查",
+          "evidence": "实测 top-1 分别为 达摩古洞/千佛岩/达摩古洞(燕子矶 alias) chunk"
+        },
+        {
+          "criterion": "pytest 全绿",
+          "verify_by": ".venv/bin/python -m pytest -q",
+          "evidence": ".venv/bin/python -m pytest -q → 36 passed, 1 skipped"
+        }
+      ],
+      "done_when": [],
+      "boundaries": [
+        "不重新抓取笔记、不下载图片；不改 Chunk schema 定义",
+        "不动 agent/scraper/ocr 模块"
+      ],
+      "depends_on": [],
+      "reads": [
+        ".loom/design/KNOWLEDGE.md",
+        "src/knowledge/schema.py",
+        "src/knowledge/indexer.py",
+        "src/knowledge/graph.py",
+        "data/raw/notes/b460_456174.json",
+        "data/raw/notes/b460_585834.json"
+      ],
+      "touches": [
+        "scripts/chunk_qixia.py",
+        "data/processed/chunks.json",
+        "data/processed/knowledge_graph.json",
+        "data/index/embeddings.json",
+        "data/index/search_index.json",
+        "data/raw/HARVEST.md",
+        "src/knowledge/graph.py"
+      ],
+      "implements": ".loom/design/KNOWLEDGE.md#Chunk schema（契约核心）",
+      "design_exemption": "",
+      "capability_hooks": [],
+      "capability_exemption": "文本结构化提取与归一化，无独立专业域决策树适用",
+      "integrity_version": 1,
+      "covers": [],
+      "status": "done",
+      "progress": {
+        "completed": [],
+        "current": "complete",
+        "next": ""
+      },
+      "evidence": [
+        "scripts/chunk_qixia.py 运行产出 40 个栖霞 chunk（13 notes），全库 52 chunk（含 12 mock 种子）；index 52 vectors dim=256；graph 20 locations。",
+        "pytest: 36 passed, 1 skipped",
+        {
+          "type": "acceptance_results",
+          "results": [
+            {
+              "criterion": "chunks.json 全部为合法 Chunk schema 且 content ≤200 字",
+              "evidence": "逐字段校验通过；>200字 content: []"
+            },
+            {
+              "criterion": "location 归一化到 栖霞山/千佛岩/舍利塔/达摩古洞",
+              "evidence": "b460 chunk location 分布：栖霞山28/达摩古洞10/舍利塔1/千佛岩1；幕燕滨江子地名进 structured_data.locations 并在 POI_SEED 建别名"
+            },
+            {
+              "criterion": "检索 query「达摩古洞拍照」「千佛岩」「燕子矶骑行」命中对应 canonical POI chunk",
+              "evidence": "实测 top-1 分别为 达摩古洞/千佛岩/达摩古洞(燕子矶 alias) chunk"
+            },
+            {
+              "criterion": "pytest 全绿",
+              "evidence": ".venv/bin/python -m pytest -q → 36 passed, 1 skipped"
+            }
+          ],
+          "at": "2026-09-23T03:32:39.819Z"
+        }
+      ],
+      "created_at": "2026-09-23T03:31:57.422Z",
+      "updated_at": "2026-09-23T03:32:39.819Z",
+      "completed_at": "2026-09-23T03:32:39.819Z"
     }
   ]
 }
